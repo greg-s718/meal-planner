@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greg & Reyna's Complete Cookbook</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            color: #C55A11;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .version {
+            color: #999;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .hero-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section p {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+        
+        .main-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .nav-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            cursor: pointer;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: #C55A11;
+        }
+        
+        .nav-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .nav-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .nav-card h3 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .nav-card p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .features {
+            margin: 60px 0;
+        }
+        
+        .features h2 {
+            color: #C55A11;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #C55A11;
+        }
+        
+        .feature-item h4 {
+            color: #2d3748;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .how-to-use {
+            background: #fff9e6;
+            border: 3px solid #ffa500;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+        
+        .how-to-use h2 {
+            color: #C55A11;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+        }
+        
+        .how-to-use ol {
+            font-size: 1.2em;
+            line-height: 2.5;
+            padding-left: 30px;
+        }
+        
+        .how-to-use ol li {
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .pro-tip {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 25px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+        
+        .pro-tip strong {
+            color: #155724;
+            font-size: 1.3em;
+        }
+        
+        .pro-tip p {
+            color: #155724;
+            font-size: 1.1em;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .nav-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍳 Greg & Reyna's Complete Cookbook</h1>
+            <p class="subtitle">100 Low-Carb, Gluten-Free Recipes for Honduras Living</p>
+            <p class="version">Version 3.0 - Complete Edition - January 2026</p>
+        </header>
+        
+        <div class="hero-section">
+            <h2>Welcome to Your Interactive Cookbook!</h2>
+            <p>🌶️ All Spicy Recipes Include MILD Versions</p>
+            <p>📱 Works Offline - Perfect for Honduras</p>
+            <p>🎯 Customized Portions for Greg & Reyna</p>
+        </div>
+        
+        <div class="main-nav">
+            <div class="nav-card">
+                <a href="recipes.html">
+                    <div class="nav-icon">📖</div>
+                    <h3>View All Recipes</h3>
+                    <p>Browse 100 complete recipes with full ingredients, instructions, and nutritional information. Filter by meal type, cuisine, or spice level.</p>
+                </a>
+            </div>
+            
+            <div class="nav-card">
+                <a href="calculator.html">
+                    <div class="nav-icon">🧮</div>
+                    <h3>Meal Planner & Calculator</h3>
+                    <p>Select recipes for your week, choose how many times to make each one, and generate smart shopping lists and prep guides.</p>
+                </a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>✨ What's Inside</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>🍳 17 Breakfast Recipes</h4>
+                    <p>Protein-packed morning meals including Honduran specialties</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🥗 19 Lunch Recipes</h4>
+                    <p>Satisfying midday meals with international & Honduran flavors</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🍽️ 25 Dinner Recipes</h4>
+                    <p>Delicious evening options from around the world including Honduras</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🥜 16 Snacks & Drinks</h4>
+                    <p>Healthy options including Honduran beverages</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✨ 23 Extras</h4>
+                    <p>Spice blends, dressings, marinades, desserts, and Honduran beverages</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔢 Quantity Selectors</h4>
+                    <p>Choose how many times to make each recipe (1x, 2x, 3x+)</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🛒 Smart Shopping Lists</h4>
+                    <p>Auto-generated with consolidated quantities</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📋 Prep Guides</h4>
+                    <p>Sunday meal prep instructions for the week</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="how-to-use">
+            <h2>🎯 How to Use This Cookbook</h2>
+            <ol>
+                <li><strong>Browse Recipes:</strong> Click "View All Recipes" to explore all 100 options with complete details</li>
+                <li><strong>Filter & Search:</strong> Use dropdowns to filter by meal type, cuisine type, or spice level</li>
+                <li><strong>Plan Your Week:</strong> Go to the Meal Planner to select recipes for your week</li>
+                <li><strong>Choose Quantities:</strong> For each recipe, select how many times you'll make it (1x, 2x, 3x)</li>
+                <li><strong>Generate Lists:</strong> Get your shopping list and Sunday prep guide automatically</li>
+                <li><strong>Cook & Enjoy:</strong> Follow the detailed instructions with portions for both Greg and Reyna</li>
+            </ol>
+        </div>
+        
+        <div class="pro-tip">
+            <strong>💡 Pro Tips:</strong>
+            <p>• Save these HTML files to your device for offline access in Honduras<br>
+            • Most recipes serve 2 (Greg's larger portion + Reyna's smaller portion)<br>
+            • Plan for 6 meals per week, leaving 1 day for date night<br>
+            • Use quantity selectors if you want to eat the same recipe multiple times<br>
+            • All files are editable - easy to add, remove, or modify recipes</p>
+        </div>
+        
+        <div class="how-to-use">
+            <h2>📝 Easy Editing Instructions</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">This cookbook is designed to be easy to customize!</p>
+            <ul style="line-height: 2; font-size: 1.1em; list-style-position: inside;">
+                <li><strong>To remove a recipe:</strong> Open recipes.html or calculator.html in a text editor, find the recipe (clearly labeled), and delete that section</li>
+                <li><strong>To add a recipe:</strong> Copy an existing recipe template, modify the details, and save</li>
+                <li><strong>To edit ingredients/portions:</strong> Find the recipe and update the values directly</li>
+                <li>All recipes are clearly marked with comments like <code>&lt;!-- RECIPE #B001 --&gt;</code></li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p><strong>Greg & Reyna's Complete Interactive Cookbook</strong></p>
+            <p>Created January 2026 • Works Offline • Easy to Edit</p>
+            <p style="margin-top: 15px; color: #999;">Ready for your adventure in Honduras! 🇭🇳</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Register Service Worker for offline functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered successfully');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
