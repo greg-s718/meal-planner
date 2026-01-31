@@ -43,7 +43,7 @@ const RECIPES_DATABASE = {
                 "Serve immediately while hot"
             ],
             gregMacros: { protein: "38g", carbs: "14g", fat: "28g", calories: 450 },
-            reynaMacros: { protein: "25g", carbs: "8g", fat: "14g", calories: 245 }
+            reynaMacros: { protein: "25g", carbs: "8g", fat: "14g", calories: 245 },
         },
         
         {
