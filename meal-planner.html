@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Meal Planner - Greg & Reyna's Cookbook</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #C55A11;
+        }
+        
+        h1 {
+            color: #C55A11;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a, .nav-links button {
+            text-decoration: none;
+            color: white;
+            background: #C55A11;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .nav-links a:hover, .nav-links button:hover {
+            background: #a04809;
+            transform: translateY(-2px);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #48bb78;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+        
+        .week-planner {
+            margin: 30px 0;
+        }
+        
+        .day-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .meal-row {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .meal-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+        
+        .meal-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        
+        .meal-info {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .remove-btn {
+            background: #fc8181;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .remove-btn:hover {
+            background: #f56565;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .modal-header h2 {
+            color: #C55A11;
+            font-size: 1.8em;
+        }
+        
+        .close-btn {
+            background: #fc8181;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .close-btn:hover {
+            background: #f56565;
+        }
+        
+        .shopping-list {
+            margin-top: 20px;
+        }
+        
+        .category-section {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .ingredient-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .ingredient-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.1em;
+        }
+        
+        .ingredient-item:last-child {
+            border-bottom: none;
+        }
+        
+        .prep-list {
+            margin-top: 20px;
+        }
+        
+        .prep-day {
+            margin-bottom: 25px;
+        }
+        
+        .prep-day-header {
+            background: #48bb78;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .prep-meal {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .prep-meal h4 {
+            color: #C55A11;
+            margin-bottom: 10px;
+        }
+        
+        .prep-steps {
+            padding-left: 20px;
+        }
+        
+        .prep-steps li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        @media print {
+            .nav-links, .action-buttons, .close-btn {
+                display: none;
+            }
+            
+            .modal-content {
+                max-height: none;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .meal-row {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗓️ Weekly Meal Planner</h1>
+            <p class="subtitle">Plan Your Week • One Meal, Two Portions</p>
+        </header>
+        
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="recipes.html">📖 View All Recipes</a>
+            <button onclick="clearWeekPlan()">🔄 Clear Week</button>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="generateShoppingList()">🛒 Generate Shopping List</button>
+            <button class="btn-secondary" onclick="generatePrepList()">📋 Generate Prep List</button>
+        </div>
+        
+        <div class="week-planner" id="weekPlanner">
+            <!-- Days will be generated by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Shopping List Modal -->
+    <div id="shoppingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Weekly Shopping List</h2>
+                <button class="close-btn" onclick="closeModal('shoppingModal')">Close</button>
+            </div>
+            <button class="btn-primary" onclick="window.print()" style="margin-bottom: 20px;">🖨️ Print Shopping List</button>
+            <div id="shoppingListContent"></div>
+        </div>
+    </div>
+    
+    <!-- Prep List Modal -->
+    <div id="prepModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Weekly Prep List</h2>
+                <button class="close-btn" onclick="closeModal('prepModal')">Close</button>
+            </div>
+            <button class="btn-secondary" onclick="window.print()" style="margin-bottom: 20px;">🖨️ Print Prep List</button>
+            <div id="prepListContent"></div>
+        </div>
+    </div>
+    
+    <script src="recipes-data.js"></script>
+    <script>
+        // Week plan storage
+        let weekPlan = {
+            Monday: { breakfast: null, lunch: null, dinner: null },
+            Tuesday: { breakfast: null, lunch: null, dinner: null },
+            Wednesday: { breakfast: null, lunch: null, dinner: null },
+            Thursday: { breakfast: null, lunch: null, dinner: null },
+            Friday: { breakfast: null, lunch: null, dinner: null },
+            Saturday: { breakfast: null, lunch: null, dinner: null },
+            Sunday: { breakfast: null, lunch: null, dinner: null }
+        };
+        
+        // Load saved plan from localStorage
+        function loadWeekPlan() {
+            const saved = localStorage.getItem('weekPlan');
+            if (saved) {
+                weekPlan = JSON.parse(saved);
+            }
+        }
+        
+        // Save plan to localStorage
+        function saveWeekPlan() {
+            localStorage.setItem('weekPlan', JSON.stringify(weekPlan));
+        }
+        
+        // Generate week planner interface
+        function generateWeekPlanner() {
+            const container = document.getElementById('weekPlanner');
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            
+            container.innerHTML = '';
+            
+            days.forEach(day => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                dayCard.innerHTML = `
+                    <div class="day-header">${day}</div>
+                    ${generateMealRow(day, 'breakfast', '🍳 Breakfast')}
+                    ${generateMealRow(day, 'lunch', '🥗 Lunch')}
+                    ${generateMealRow(day, 'dinner', '🍽️ Dinner')}
+                `;
+                
+                container.appendChild(dayCard);
+            });
+        }
+        
+        // Generate meal selection row
+        function generateMealRow(day, mealType, label) {
+            const allRecipes = [
+                ...RECIPES_DATABASE.breakfast.map(r => ({...r, category: 'breakfast'})),
+                ...RECIPES_DATABASE.lunch.map(r => ({...r, category: 'lunch'})),
+                ...RECIPES_DATABASE.dinner.map(r => ({...r, category: 'dinner'})),
+                ...RECIPES_DATABASE.snacks.map(r => ({...r, category: 'snacks'}))
+            ];
+            
+            // Filter recipes by meal type
+            const recipesForMeal = allRecipes.filter(r => r.category === mealType);
+            
+            const currentSelection = weekPlan[day][mealType];
+            const selectedRecipe = currentSelection ? allRecipes.find(r => r.id === currentSelection) : null;
+            
+            let mealInfo = '';
+            if (selectedRecipe) {
+                mealInfo = `
+                    <div class="meal-info">
+                        Greg: ${selectedRecipe.gregMacros.calories} cal | 
+                        Reyna: ${selectedRecipe.reynaMacros.calories} cal
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="meal-row">
+                    <div class="meal-label">${label}</div>
+                    <div>
+                        <select class="meal-select" onchange="selectMeal('${day}', '${mealType}', this.value)">
+                            <option value="">-- Select Recipe --</option>
+                            ${recipesForMeal.map(recipe => `
+                                <option value="${recipe.id}" ${currentSelection === recipe.id ? 'selected' : ''}>
+                                    ${recipe.name}
+                                </option>
+                            `).join('')}
+                        </select>
+                        ${mealInfo}
+                    </div>
+                    ${currentSelection ? `<button class="remove-btn" onclick="removeMeal('${day}', '${mealType}')">Remove</button>` : ''}
+                </div>
+            `;
+        }
+        
+        // Select a meal
+        function selectMeal(day, mealType, recipeId) {
+            if (recipeId) {
+                weekPlan[day][mealType] = recipeId;
+            } else {
+                weekPlan[day][mealType] = null;
+            }
+            saveWeekPlan();
+            generateWeekPlanner();
+        }
+        
+        // Remove a meal
+        function removeMeal(day, mealType) {
+            weekPlan[day][mealType] = null;
+            saveWeekPlan();
+            generateWeekPlanner();
+        }
+        
+        // Clear entire week
+        function clearWeekPlan() {
+            if (confirm('Are you sure you want to clear your entire week plan?')) {
+                weekPlan = {
+                    Monday: { breakfast: null, lunch: null, dinner: null },
+                    Tuesday: { breakfast: null, lunch: null, dinner: null },
+                    Wednesday: { breakfast: null, lunch: null, dinner: null },
+                    Thursday: { breakfast: null, lunch: null, dinner: null },
+                    Friday: { breakfast: null, lunch: null, dinner: null },
+                    Saturday: { breakfast: null, lunch: null, dinner: null },
+                    Sunday: { breakfast: null, lunch: null, dinner: null }
+                };
+                saveWeekPlan();
+                generateWeekPlanner();
+            }
+        }
+        
+        // Generate shopping list
+        function generateShoppingList() {
+            const allRecipes = [
+                ...RECIPES_DATABASE.breakfast,
+                ...RECIPES_DATABASE.lunch,
+                ...RECIPES_DATABASE.dinner,
+                ...RECIPES_DATABASE.snacks
+            ];
+            
+            // STAGE 1: Collect all ingredients in INTERMEDIATE format (recipe units)
+            const intermediateMap = {};
+            
+            Object.keys(weekPlan).forEach(day => {
+                ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+                    const recipeId = weekPlan[day][mealType];
+                    if (recipeId) {
+                        const recipe = allRecipes.find(r => r.id === recipeId);
+                        if (recipe && recipe.ingredients) {
+                            recipe.ingredients.forEach(ing => {
+                                const intermediate = convertToIntermediateFormat(ing);
+                                if (intermediate) {
+                                    // Create key from name + unit (e.g., "garlic, minced:clove")
+                                    const key = `${intermediate.name.toLowerCase()}:${intermediate.unit || 'none'}`;
+                                    if (intermediateMap[key]) {
+                                        intermediateMap[key].quantity += intermediate.quantity;
+                                    } else {
+                                        intermediateMap[key] = intermediate;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // STAGE 2: Convert aggregated intermediate to shopping format
+            const shoppingMap = {};
+            Object.values(intermediateMap).forEach(intermediate => {
+                const shoppingItem = convertToShoppingFormat(intermediate);
+                if (shoppingItem) {
+                    const key = shoppingItem.name.toLowerCase();
+                    if (shoppingMap[key]) {
+                        shoppingMap[key].quantity += shoppingItem.quantity;
+                    } else {
+                        shoppingMap[key] = shoppingItem;
+                    }
+                }
+            });
+            
+            // Organize by category
+            const categories = {
+                'Produce': [],
+                'Meat & Seafood': [],
+                'Dairy & Eggs': [],
+                'Pantry & Canned Goods': [],
+                'Frozen': [],
+                'Other': []
+            };
+            
+            Object.values(shoppingMap).forEach(item => {
+                categories[item.category].push(item);
+            });
+            
+            // Display shopping list
+            const content = document.getElementById('shoppingListContent');
+            content.innerHTML = '<div class="shopping-list">';
+            
+            if (Object.values(shoppingMap).length === 0) {
+                content.innerHTML += '<p style="text-align: center; padding: 40px; color: #666;">No meals planned yet. Add meals to your week to generate a shopping list!</p>';
+            } else {
+                Object.keys(categories).forEach(category => {
+                    if (categories[category].length > 0) {
+                        content.innerHTML += `
+                            <div class="category-section">
+                                <div class="category-title">${category}</div>
+                                <div class="ingredient-list">
+                                    ${categories[category].map(item => `
+                                        <div class="ingredient-item">
+                                            ☐ ${formatShoppingItem(item)}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+            
+            content.innerHTML += '</div>';
+            
+            document.getElementById('shoppingModal').classList.add('show');
+        }
+        
+        // Comprehensive ingredient conversion rules
+        const CONVERSION_RULES = {
+            // PRODUCE
+            'bell pepper': { base: 'bell peppers', qty: 1, unit: 'each', category: 'Produce' },
+            'red bell pepper': { base: 'red bell peppers', qty: 1, unit: 'each', category: 'Produce' },
+            'green bell pepper': { base: 'green bell peppers', qty: 1, unit: 'each', category: 'Produce' },
+            'onion': { base: 'yellow onions', qty: 1, unit: 'each', category: 'Produce' },
+            'red onion': { base: 'red onions', qty: 1, unit: 'each', category: 'Produce' },
+            'garlic clove': { base: 'garlic (1 head)', qty: 1, unit: 'head', category: 'Produce' },
+            'garlic': { base: 'garlic (1 head)', qty: 1, unit: 'head', category: 'Produce' },
+            'tomato': { base: 'tomatoes', qty: 1, unit: 'each', category: 'Produce' },
+            'cherry tomato': { base: 'cherry tomatoes (1 pint)', qty: 1, unit: 'pint', category: 'Produce' },
+            'avocado': { base: 'avocados', qty: 1, unit: 'each', category: 'Produce' },
+            'lemon': { base: 'lemons', qty: 1, unit: 'each', category: 'Produce' },
+            'lime': { base: 'limes', qty: 1, unit: 'each', category: 'Produce' },
+            'cucumber': { base: 'cucumbers', qty: 1, unit: 'each', category: 'Produce' },
+            'zucchini': { base: 'zucchini', qty: 1, unit: 'each', category: 'Produce' },
+            'romaine': { base: 'romaine lettuce (1 head)', qty: 1, unit: 'head', category: 'Produce' },
+            'lettuce': { base: 'lettuce (1 head)', qty: 1, unit: 'head', category: 'Produce' },
+            'spinach': { base: 'fresh spinach (5 oz bag)', qty: 1, unit: 'bag', category: 'Produce' },
+            'cilantro': { base: 'fresh cilantro (1 bunch)', qty: 1, unit: 'bunch', category: 'Produce' },
+            'parsley': { base: 'fresh parsley (1 bunch)', qty: 1, unit: 'bunch', category: 'Produce' },
+            'basil': { base: 'fresh basil (1 bunch)', qty: 1, unit: 'bunch', category: 'Produce' },
+            'mushroom': { base: 'mushrooms (8 oz package)', qty: 1, unit: 'package', category: 'Produce' },
+            'broccoli': { base: 'broccoli crowns', qty: 1, unit: 'crown', category: 'Produce' },
+            'cauliflower': { base: 'cauliflower (1 head)', qty: 1, unit: 'head', category: 'Produce' },
+            'carrot': { base: 'carrots (1 lb bag)', qty: 1, unit: 'bag', category: 'Produce' },
+            'celery': { base: 'celery (1 bunch)', qty: 1, unit: 'bunch', category: 'Produce' },
+            'jalapeño': { base: 'jalapeño peppers', qty: 1, unit: 'each', category: 'Produce' },
+            'apple': { base: 'apples', qty: 1, unit: 'each', category: 'Produce' },
+            'berries': { base: 'mixed berries (1 pint)', qty: 1, unit: 'pint', category: 'Produce' },
+            'blueberries': { base: 'blueberries (1 pint)', qty: 1, unit: 'pint', category: 'Produce' },
+            'strawberries': { base: 'strawberries (1 lb)', qty: 1, unit: 'lb', category: 'Produce' },
+            'mixed greens': { base: 'mixed greens (5 oz bag)', qty: 1, unit: 'bag', category: 'Produce' },
+            'brussels sprout': { base: 'Brussels sprouts (1 lb)', qty: 1, unit: 'lb', category: 'Produce' },
+            'plantain': { base: 'plantains', qty: 1, unit: 'each', category: 'Produce' },
+            'green plantain': { base: 'green plantains', qty: 1, unit: 'each', category: 'Produce' },
+            
+            // MEAT & SEAFOOD
+            'chicken breast': { base: 'boneless skinless chicken breasts', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'chicken thigh': { base: 'boneless skinless chicken thighs', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'ground beef': { base: 'ground beef (93% lean)', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'ground turkey': { base: 'ground turkey (93% lean)', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'ground chicken': { base: 'ground chicken', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'salmon': { base: 'salmon fillets', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'cod': { base: 'cod fillets', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'shrimp': { base: 'large shrimp (peeled, deveined)', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'pork tenderloin': { base: 'pork tenderloin', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'steak': { base: 'sirloin or ribeye steaks', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'beef': { base: 'beef (sirloin or chuck)', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'bacon': { base: 'bacon (1 package)', qty: 1, unit: 'package', category: 'Meat & Seafood' },
+            'sausage': { base: 'Italian sausage', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'turkey': { base: 'turkey breast', qty: 1, unit: 'lb', category: 'Meat & Seafood' },
+            'deli turkey': { base: 'sliced deli turkey', qty: 0.5, unit: 'lb', category: 'Meat & Seafood' },
+            
+            // DAIRY & EGGS
+            'egg': { base: 'large eggs (1 dozen)', qty: 1, unit: 'dozen', category: 'Dairy & Eggs' },
+            'large eggs': { base: 'large eggs (1 dozen)', qty: 1, unit: 'dozen', category: 'Dairy & Eggs' },
+            'cheddar': { base: 'shredded cheddar cheese (8 oz)', qty: 1, unit: 'bag', category: 'Dairy & Eggs' },
+            'mozzarella': { base: 'shredded mozzarella (8 oz)', qty: 1, unit: 'bag', category: 'Dairy & Eggs' },
+            'feta': { base: 'crumbled feta cheese (6 oz)', qty: 1, unit: 'package', category: 'Dairy & Eggs' },
+            'parmesan': { base: 'grated Parmesan (8 oz)', qty: 1, unit: 'container', category: 'Dairy & Eggs' },
+            'cream cheese': { base: 'cream cheese (8 oz)', qty: 1, unit: 'package', category: 'Dairy & Eggs' },
+            'greek yogurt': { base: 'plain Greek yogurt (32 oz)', qty: 1, unit: 'container', category: 'Dairy & Eggs' },
+            'cottage cheese': { base: 'cottage cheese (16 oz)', qty: 1, unit: 'container', category: 'Dairy & Eggs' },
+            'butter': { base: 'unsalted butter (1 lb)', qty: 1, unit: 'lb', category: 'Dairy & Eggs' },
+            'heavy cream': { base: 'heavy cream (1 pint)', qty: 1, unit: 'pint', category: 'Dairy & Eggs' },
+            'almond milk': { base: 'unsweetened almond milk (half gallon)', qty: 1, unit: 'half gallon', category: 'Dairy & Eggs' },
+            'milk': { base: 'milk (half gallon)', qty: 1, unit: 'half gallon', category: 'Dairy & Eggs' },
+            
+            // PANTRY & CANNED
+            'black beans': { base: 'canned black beans (15 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'chickpeas': { base: 'canned chickpeas (15 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'diced tomatoes': { base: 'canned diced tomatoes (14.5 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'tomato sauce': { base: 'tomato sauce (15 oz can)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'tomato paste': { base: 'tomato paste (6 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'coconut milk': { base: 'coconut milk (13.5 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'chicken broth': { base: 'chicken broth (32 oz)', qty: 1, unit: 'carton', category: 'Pantry & Canned Goods' },
+            'beef broth': { base: 'beef broth (32 oz)', qty: 1, unit: 'carton', category: 'Pantry & Canned Goods' },
+            'olive oil': { base: 'extra virgin olive oil', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' },
+            'coconut oil': { base: 'coconut oil', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'almond flour': { base: 'almond flour (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'coconut flour': { base: 'coconut flour (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'quinoa': { base: 'quinoa (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'cauliflower rice': { base: 'frozen cauliflower rice (12 oz)', qty: 1, unit: 'bag', category: 'Frozen' },
+            'tapioca starch': { base: 'tapioca starch/flour (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'tapioca flour': { base: 'tapioca starch/flour (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'xanthan gum': { base: 'xanthan gum (small package)', qty: 1, unit: 'package', category: 'Pantry & Canned Goods' },
+            'psyllium husk': { base: 'psyllium husk powder', qty: 1, unit: 'container', category: 'Pantry & Canned Goods' },
+            'almond butter': { base: 'almond butter (16 oz)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'peanut butter': { base: 'peanut butter (16 oz)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'nuts': { base: 'mixed nuts (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'almonds': { base: 'almonds (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'walnuts': { base: 'walnuts (1 lb)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'olives': { base: 'olives (jar)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'kalamata': { base: 'Kalamata olives (jar)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'oats': { base: 'gluten-free oats (container)', qty: 1, unit: 'container', category: 'Pantry & Canned Goods' },
+            'protein powder': { base: 'vanilla protein powder (container)', qty: 1, unit: 'container', category: 'Pantry & Canned Goods' },
+            'stevia': { base: 'Stevia sweetener', qty: 1, unit: 'package', category: 'Pantry & Canned Goods' },
+            'flaxseed': { base: 'ground flaxseed', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'vanilla extract': { base: 'vanilla extract', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' },
+            'curtido': { base: 'curtido (pickled cabbage)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'chimol': { base: 'chimol (fresh salsa)', qty: 1, unit: 'container', category: 'Produce' },
+            'ice cubes': { base: 'ice', qty: 0, unit: 'pantry', category: 'Other' },
+            'tortilla': { base: '⭐ Make homemade GF tortillas (see Extras recipes)', qty: 0, unit: 'recipe', category: 'Other' },
+            'flour tortilla': { base: '⭐ Make homemade GF tortillas (see Extras recipes)', qty: 0, unit: 'recipe', category: 'Other' },
+            'refried beans': { base: 'canned refried beans (16 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'kidney beans': { base: 'canned kidney beans (15 oz)', qty: 1, unit: 'can', category: 'Pantry & Canned Goods' },
+            'queso fresco': { base: 'queso fresco cheese (12 oz)', qty: 1, unit: 'package', category: 'Dairy & Eggs' },
+            'crema': { base: 'Honduran crema or sour cream (8 oz)', qty: 1, unit: 'container', category: 'Dairy & Eggs' },
+            'sour cream': { base: 'sour cream (8 oz)', qty: 1, unit: 'container', category: 'Dairy & Eggs' },
+            'cajun': { base: 'Cajun seasoning', qty: 0, unit: 'pantry', category: 'Spices & Condiments' },
+            'tikka masala': { base: 'tikka masala spice blend', qty: 0, unit: 'pantry', category: 'Spices & Condiments' },
+            'tandoori': { base: 'tandoori spice blend', qty: 0, unit: 'pantry', category: 'Spices & Condiments' },
+            'ginger': { base: 'fresh ginger root', qty: 1, unit: 'piece', category: 'Produce' },
+            'garam masala': { base: 'garam masala', qty: 0, unit: 'pantry', category: 'Spices & Condiments' },
+            'chia seed': { base: 'chia seeds (bag)', qty: 1, unit: 'bag', category: 'Pantry & Canned Goods' },
+            'honey': { base: 'honey (jar)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'orange juice': { base: 'orange juice (carton)', qty: 1, unit: 'carton', category: 'Dairy & Eggs' },
+            'kimchi': { base: 'kimchi (jar)', qty: 1, unit: 'jar', category: 'Pantry & Canned Goods' },
+            'coconut aminos': { base: 'coconut aminos (bottle)', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' },
+            'soy sauce': { base: 'soy sauce or coconut aminos (bottle)', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' },
+            'sesame oil': { base: 'sesame oil (bottle)', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' },
+            'rice vinegar': { base: 'rice vinegar (bottle)', qty: 1, unit: 'bottle', category: 'Pantry & Canned Goods' }
+        };
+        
+        
+        // STAGE 1: Convert recipe ingredient to INTERMEDIATE format (keeps recipe units)
+        function convertToIntermediateFormat(ingredient) {
+            // Strip portion info FIRST
+            let clean = ingredient.replace(/\(Greg:.*?Reyna:.*?\)/gi, '').trim();
+            const lower = clean.toLowerCase();
+            
+            // Skip pantry staples
+            const skip = ['salt', 'black pepper', 'white pepper', 'pepper to taste', 'cumin', 'paprika', 'oregano', 'garlic powder', 'onion powder', 'chili powder', 'cayenne', 'cinnamon', 'nutmeg', 'ginger powder', 'turmeric', 'coriander', 'dried', 'cooking spray', 'chimol', 'curtido'];
+            for (let s of skip) {
+                if (lower.includes(s) && !lower.includes('bell pepper')) return null;
+            }
+            
+            // Extract quantity and unit
+            let qty = 1, unit = null, name = clean;
+            
+            // Handle fraction symbols: ½ = 0.5, ¼ = 0.25, ¾ = 0.75, ⅓ = 0.33, ⅔ = 0.67
+            clean = clean.replace(/½/g, '0.5').replace(/¼/g, '0.25').replace(/¾/g, '0.75')
+                        .replace(/⅓/g, '0.33').replace(/⅔/g, '0.67').replace(/⅛/g, '0.125');
+            
+            const match = clean.match(/^(\d+(?:\s*\/\s*\d+)?|\d+\.\d+)\s*(oz|lb|cup|cups|tbsp|tsp|clove|cloves|large|medium|small)?\s*/i);
+            
+            if (match) {
+                const qtyStr = match[1].replace(/\s+/g, '');
+                // Parse fractions
+                if (qtyStr.includes('/')) {
+                    const parts = qtyStr.split('/');
+                    qty = parseInt(parts[0]) / parseInt(parts[1]);
+                } else {
+                    qty = parseFloat(qtyStr) || 1;
+                }
+                
+                if (match[2]) {
+                    unit = match[2].toLowerCase();
+                    // Normalize
+                    if (unit === 'cups') unit = 'cup';
+                    if (unit === 'cloves') unit = 'clove';
+                }
+                
+                // Remove quantity/unit from name
+                name = clean.substring(match[0].length).trim();
+            }
+            
+            // Clean up the name
+            name = name.replace(/,.*$/, '').trim(); // Remove everything after comma
+            
+            // Categorize
+            let category = 'Other';
+            if (lower.includes('egg')) category = 'Dairy & Eggs';
+            else if (lower.includes('chicken') || lower.includes('beef') || lower.includes('pork') || lower.includes('salmon') || lower.includes('shrimp')) category = 'Meat & Seafood';
+            else if (lower.includes('cheese') || lower.includes('yogurt') || lower.includes('milk') || lower.includes('butter')) category = 'Dairy & Eggs';
+            else if (lower.includes('oil') || lower.includes('flour') || lower.includes('quinoa') || lower.includes('broth')) category = 'Pantry & Canned Goods';
+            else category = 'Produce';
+            
+            // Return in recipe units (keeps cups, tbsp, cloves, etc.)
+            return { name: name, quantity: qty, unit: unit, category: category };
+        }
+        
+        // STAGE 2: Convert aggregated INTERMEDIATE format to shopping format
+        function convertToShoppingFormat(intermediate) {
+            const name = intermediate.name.toLowerCase();
+            const qty = intermediate.quantity;
+            const unit = intermediate.unit;
+            
+            // GARLIC: Convert cloves to heads
+            if (name.includes('garlic') && unit === 'clove') {
+                const heads = Math.ceil(qty / 12); // 12 cloves per head
+                return { name: 'garlic', quantity: heads, unit: 'head', category: 'Produce' };
+            }
+            
+            // LEMON JUICE: Convert tbsp to lemons
+            if (name.includes('lemon') && unit === 'tbsp') {
+                const lemons = Math.ceil(qty / 2); // 2 tbsp juice per lemon
+                return { name: 'lemons', quantity: lemons, unit: 'each', category: 'Produce' };
+            }
+            
+            // LIME JUICE: Convert tbsp to limes
+            if (name.includes('lime') && unit === 'tbsp') {
+                const limes = Math.ceil(qty / 2); // 2 tbsp juice per lime
+                return { name: 'limes', quantity: limes, unit: 'each', category: 'Produce' };
+            }
+            
+            // BELL PEPPERS: Convert cups to count
+            if (name.includes('bell pepper') && unit === 'cup') {
+                const peppers = Math.ceil(qty); // 1 cup ≈ 1 pepper
+                return { name: 'bell peppers', quantity: peppers, unit: 'each', category: 'Produce' };
+            }
+            
+            // MUSHROOMS: Convert cups to packages
+            if (name.includes('mushroom')) {
+                if (unit && (unit.includes('cup') || unit === 'cup')) {
+                    const packages = Math.ceil(qty / 2); // 2 cups per 8 oz package
+                    return { name: 'mushrooms', quantity: packages, unit: '8 oz package', category: 'Produce' };
+                }
+            }
+            
+            // SHREDDED CHEDDAR: Convert cups to bags
+            if (name.includes('cheddar')) {
+                if (unit && (unit.includes('cup') || unit === 'cup')) {
+                    const bags = Math.ceil(qty / 2); // 2 cups per 8 oz bag
+                    return { name: 'shredded cheddar cheese', quantity: bags, unit: '8 oz bag', category: 'Dairy & Eggs' };
+                }
+            }
+            
+            // FETA: Convert cups to packages
+            if (name.includes('feta')) {
+                if (unit && (unit.includes('cup') || unit === 'cup')) {
+                    const packages = Math.ceil(qty / 1.5); // 1.5 cups per 6 oz package
+                    return { name: 'crumbled feta cheese', quantity: packages, unit: '6 oz package', category: 'Dairy & Eggs' };
+                }
+            }
+            
+            // MIXED GREENS/SPINACH: Convert cups to bags  
+            if (name.includes('mixed greens') || name.includes('spinach')) {
+                if (unit && (unit.includes('cup') || unit === 'cup')) {
+                    const bags = Math.ceil(qty / 5); // 5 cups per 5 oz bag
+                    return { name: 'mixed greens or spinach', quantity: bags, unit: '5 oz bag', category: 'Produce' };
+                } else if (!unit || unit === 'each') {
+                    // If no unit or 'each', assume it's bags already
+                    return { name: 'mixed greens or spinach', quantity: qty, unit: '5 oz bag', category: 'Produce' };
+                }
+            }
+            
+            // OLIVES: Convert cups to jars
+            if (name.includes('olive') && !name.includes('oil')) {
+                if (unit && (unit.includes('cup') || unit === 'cup')) {
+                    const jars = Math.ceil(qty / 1.5); // 1.5 cups per jar
+                    return { name: 'Kalamata olives', quantity: jars, unit: 'jar', category: 'Pantry & Canned Goods' };
+                }
+            }
+            
+            // CHERRY TOMATOES: Convert cups to pints
+            if (name.includes('cherry tomato') && unit === 'cup') {
+                const pints = Math.ceil(qty / 2); // 2 cups per pint
+                return { name: 'cherry tomatoes', quantity: pints, unit: 'pint', category: 'Produce' };
+            }
+            
+            // EGGS: Keep as individual eggs
+            if (name.includes('egg')) {
+                return { name: 'large eggs', quantity: qty, unit: 'each', category: 'Dairy & Eggs' };
+            }
+            
+            // CHICKEN: Keep oz/lb
+            if (name.includes('chicken breast')) {
+                return { name: 'chicken breast', quantity: qty, unit: unit || 'oz', category: 'Meat & Seafood' };
+            }
+            
+            // OLIVE OIL: Keep tbsp
+            if (name.includes('olive oil')) {
+                return { name: 'olive oil', quantity: qty, unit: unit || 'tbsp', category: 'Pantry & Canned Goods' };
+            }
+            
+            // COCONUT OIL: Keep tbsp
+            if (name.includes('coconut oil')) {
+                return { name: 'coconut oil', quantity: qty, unit: unit || 'tbsp', category: 'Pantry & Canned Goods' };
+            }
+            
+            // AVOCADO: Keep as count
+            if (name.includes('avocado')) {
+                return { name: 'avocados', quantity: qty, unit: 'each', category: 'Produce' };
+            }
+            
+            // ONION: Keep as count
+            if (name.includes('onion') && !name.includes('powder')) {
+                return { name: 'onions', quantity: qty, unit: 'each', category: 'Produce' };
+            }
+            
+            // CUCUMBER: Keep as count
+            if (name.includes('cucumber')) {
+                return { name: 'cucumbers', quantity: qty, unit: 'each', category: 'Produce' };
+            }
+            
+            // DEFAULT: Return as-is
+            return { name: intermediate.name, quantity: qty, unit: unit || 'item', category: intermediate.category };
+        }
+        
+        // Format shopping item for display
+        function formatShoppingItem(item) {
+            // SPECIAL CASE: Convert eggs to dozens for display
+            if (item.name === 'large eggs' && item.unit === 'each') {
+                const dozens = item.quantity / 12;
+                if (dozens >= 1) {
+                    const roundedDozens = Math.ceil(dozens);
+                    return `${roundedDozens} ${roundedDozens === 1 ? 'dozen' : 'dozen'} large eggs (${item.quantity} eggs)`;
+                } else {
+                    return `${item.quantity} large eggs`;
+                }
+            }
+            
+            // Round quantities nicely
+            let qty = item.quantity;
+            if (qty % 1 !== 0) {
+                qty = qty.toFixed(1); // Show one decimal place
+            }
+            
+            // Format based on unit
+            if (item.unit === 'tbsp') {
+                return `${qty} ${qty === 1 ? 'tbsp' : 'tbsp'} ${item.name}`;
+            } else if (item.unit === 'tsp') {
+                return `${qty} ${qty === 1 ? 'tsp' : 'tsp'} ${item.name}`;
+            } else if (item.unit === 'cup') {
+                return `${qty} ${qty === 1 ? 'cup' : 'cups'} ${item.name}`;
+            } else if (item.unit === 'dozen' && qty === 1) {
+                return `1 dozen ${item.name}`;
+            } else if (item.unit === 'dozen') {
+                return `${qty} dozen ${item.name}`;
+            } else if (item.unit === 'lb' || item.unit === 'lbs') {
+                return `${qty} lb ${item.name}`;
+            } else if (item.unit === 'oz') {
+                // Convert oz to lb if >= 16 oz
+                if (qty >= 16) {
+                    const lbs = (qty / 16).toFixed(1);
+                    return `${lbs} lb ${item.name}`;
+                }
+                return `${qty} oz ${item.name}`;
+            } else if (item.unit === 'each') {
+                return `${qty} ${item.name}`;
+            } else if (item.unit === 'can' || item.unit === 'cans') {
+                return `${qty} ${qty === 1 ? 'can' : 'cans'} ${item.name}`;
+            } else if (item.unit === 'bag' || item.unit === 'bags') {
+                return `${qty} ${qty === 1 ? 'bag' : 'bags'} ${item.name}`;
+            } else if (item.unit === 'package' || item.unit === 'packages') {
+                return `${qty} ${qty === 1 ? 'package' : 'packages'} ${item.name}`;
+            } else if (item.unit === 'bunch') {
+                return `${qty} ${qty === 1 ? 'bunch' : 'bunches'} ${item.name}`;
+            } else if (item.unit === 'head') {
+                return `${qty} ${qty === 1 ? 'head' : 'heads'} ${item.name}`;
+            } else if (item.unit === 'pint') {
+                return `${qty} ${qty === 1 ? 'pint' : 'pints'} ${item.name}`;
+            } else if (item.unit === 'bottle' || item.unit === 'jar' || item.unit === 'container' || item.unit === 'carton') {
+                return `${qty} ${item.unit} ${item.name}`;
+            } else if (item.unit === 'item') {
+                // For generic items, don't show "1 item" - just show the name
+                return qty === 1 ? item.name : `${qty} ${item.name}`;
+            } else {
+                return `${qty} ${item.name}`;
+            }
+        }
+        
+        // Generate prep list
+        function generatePrepList() {
+            const allRecipes = [
+                ...RECIPES_DATABASE.breakfast,
+                ...RECIPES_DATABASE.lunch,
+                ...RECIPES_DATABASE.dinner,
+                ...RECIPES_DATABASE.snacks
+            ];
+            
+            const content = document.getElementById('prepListContent');
+            
+            // Check if any meals planned
+            const hasAnyMeals = Object.keys(weekPlan).some(day => 
+                weekPlan[day].breakfast || weekPlan[day].lunch || weekPlan[day].dinner
+            );
+            
+            if (!hasAnyMeals) {
+                content.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">No meals planned yet. Add meals to your week to generate a prep list!</p>';
+                document.getElementById('prepModal').classList.add('show');
+                return;
+            }
+            
+            content.innerHTML = `
+                <div class="prep-list">
+                    <div class="prep-overview" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                        <h3 style="color: #C55A11; margin-bottom: 15px;">📋 Weekly Meal Prep Guide</h3>
+                        <p style="line-height: 1.6;">This guide shows your meals day-by-day with quick prep summaries. Use your shopping list to buy ingredients, then reference this throughout the week.</p>
+                    </div>
+            `;
+            
+            // Generate day-by-day breakdown
+            Object.keys(weekPlan).forEach(day => {
+                const meals = [];
+                
+                ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+                    const recipeId = weekPlan[day][mealType];
+                    if (recipeId) {
+                        const recipe = allRecipes.find(r => r.id === recipeId);
+                        if (recipe) {
+                            meals.push({
+                                type: mealType,
+                                recipe: recipe
+                            });
+                        }
+                    }
+                });
+                
+                if (meals.length > 0) {
+                    content.innerHTML += `
+                        <div class="prep-day" style="margin-bottom: 30px; break-inside: avoid;">
+                            <div class="prep-day-header" style="background: #48bb78; color: white; padding: 15px; border-radius: 8px; font-size: 1.3em; font-weight: bold;">${day}</div>
+                    `;
+                    
+                    meals.forEach(meal => {
+                        const mealTypeLabel = meal.type.charAt(0).toUpperCase() + meal.type.slice(1);
+                        content.innerHTML += `
+                            <div class="prep-meal" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                                <h4 style="color: #C55A11; margin-bottom: 10px; font-size: 1.2em;">${mealTypeLabel}: ${meal.recipe.name}</h4>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px; padding: 10px; background: white; border-radius: 6px;">
+                                    <div><strong>⏱️ Prep:</strong> ${meal.recipe.prepTime}</div>
+                                    <div><strong>🔥 Cook:</strong> ${meal.recipe.cookTime}</div>
+                                    <div><strong>🍽️ Servings:</strong> 2 portions</div>
+                                </div>
+                                
+                                <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 6px;">
+                                    <p style="font-weight: 600; margin-bottom: 10px; color: #48bb78;">✅ Quick Prep Summary:</p>
+                                    <ul style="padding-left: 20px; line-height: 1.8;">
+                                        ${extractPrepSteps(meal.recipe).map(step => `<li>${step}</li>`).join('')}
+                                    </ul>
+                                    
+                                    <details style="margin-top: 15px;">
+                                        <summary style="cursor: pointer; color: #667eea; font-weight: 600; padding: 10px; background: #f0f4ff; border-radius: 6px;">📖 View Full Recipe Details</summary>
+                                        <div style="padding: 15px; margin-top: 10px; background: #f8f9fa; border-radius: 6px;">
+                                            <p style="font-weight: 600; margin-bottom: 10px;">Ingredients:</p>
+                                            <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 15px; font-size: 0.95em;">
+                                                ${meal.recipe.ingredients.map(ing => '<li>' + ing + '</li>').join('')}
+                                            </ul>
+                                            <p style="font-weight: 600; margin-bottom: 10px;">Full Instructions:</p>
+                                            <ol style="padding-left: 20px; line-height: 1.6; font-size: 0.95em;">
+                                                ${meal.recipe.instructions.map(inst => '<li>' + inst + '</li>').join('')}
+                                            </ol>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    content.innerHTML += `</div>`;
+                }
+            });
+            
+            content.innerHTML += '</div>';
+            
+            document.getElementById('prepModal').classList.add('show');
+        }
+        
+        // Extract key prep steps from recipe instructions
+        function extractPrepSteps(recipe) {
+            const prepSteps = [];
+            
+            // Prep action keywords (things you do BEFORE cooking)
+            const prepKeywords = [
+                'dice', 'chop', 'slice', 'mince', 'shred', 'grate', 'peel',
+                'marinate', 'soak', 'season', 'mix', 'whisk', 'beat', 'crush',
+                'measure', 'prepare', 'wash', 'drain', 'rinse', 'pat dry',
+                'cut', 'trim', 'remove', 'separate', 'combine', 'toss'
+            ];
+            
+            // Cooking keywords to EXCLUDE
+            const cookingKeywords = [
+                'heat', 'cook', 'boil', 'simmer', 'fry', 'bake', 'roast',
+                'grill', 'saute', 'brown', 'serve', 'pour', 'add to pan',
+                'stir in pan', 'remove from heat'
+            ];
+            
+            // First, try to extract prep from ingredients list
+            if (recipe.ingredients && recipe.ingredients.length > 0) {
+                const uniquePreps = new Set();
+                
+                recipe.ingredients.forEach(ing => {
+                    const lower = ing.toLowerCase();
+                    
+                    // Look for prep descriptions in ingredients
+                    if (lower.includes('diced') || lower.includes('dice')) uniquePreps.add('Dice vegetables as listed');
+                    if (lower.includes('chopped') || lower.includes('chop')) uniquePreps.add('Chop ingredients as listed');
+                    if (lower.includes('sliced') || lower.includes('slice')) uniquePreps.add('Slice ingredients as listed');
+                    if (lower.includes('minced') || lower.includes('mince')) uniquePreps.add('Mince garlic/ginger as needed');
+                    if (lower.includes('shredded') || lower.includes('shred')) uniquePreps.add('Shred ingredients as listed');
+                    if (lower.includes('grated') || lower.includes('grate')) uniquePreps.add('Grate ingredients as listed');
+                });
+                
+                prepSteps.push(...Array.from(uniquePreps));
+            }
+            
+            // Then scan instructions for PURE prep steps (no cooking)
+            if (recipe.instructions && recipe.instructions.length > 0) {
+                recipe.instructions.forEach((instruction, index) => {
+                    const lower = instruction.toLowerCase();
+                    
+                    // Check if has prep keyword AND does NOT have cooking keywords
+                    const hasPrep = prepKeywords.some(keyword => lower.includes(keyword));
+                    const hasCooking = cookingKeywords.some(keyword => lower.includes(keyword));
+                    
+                    // Only include if it's prep-focused and not cooking
+                    if (hasPrep && !hasCooking && prepSteps.length < 6) {
+                        // Clean up the instruction
+                        let cleanStep = instruction
+                            .replace(/Greg gets.*?Reyna gets.*?$/gi, '')
+                            .replace(/Portion:.*$/gi, '')
+                            .replace(/\[MILD:.*?\]/gi, '')
+                            .replace(/Honduras note:.*$/gi, '')
+                            .replace(/Note:.*$/gi, '')
+                            .trim();
+                        
+                        if (cleanStep && cleanStep.length > 15 && prepSteps.length < 6) {
+                            prepSteps.push(cleanStep);
+                        }
+                    }
+                });
+            }
+            
+            // If no prep steps found, create generic ones based on recipe type
+            if (prepSteps.length === 0) {
+                prepSteps.push(`Gather and measure all ingredients for ${recipe.name}`);
+                if (recipe.prepTime && recipe.prepTime !== '0 min' && recipe.prepTime !== '5 min') {
+                    prepSteps.push(`Allow ${recipe.prepTime} for prep work`);
+                }
+                prepSteps.push('Prep ingredients as directed in recipe');
+            }
+            
+            // Add time estimate if significant
+            if (recipe.prepTime && recipe.prepTime !== '0 min' && prepSteps.length < 5) {
+                prepSteps.push(`Total prep time: ${recipe.prepTime}`);
+            }
+            
+            // Limit to 5 steps for readability
+            return prepSteps.slice(0, 5);
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+        
+        // Initialize
+        loadWeekPlan();
+        generateWeekPlanner();
+    </script>
+</body>
+</html>
