@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greg & Reyna — Low-Gas 2-Week Meal Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --amber: #e76f51;
+    --amber-light: #f4a261;
+    --cream: #fefae0;
+    --brown: #5c4033;
+    --gray: #6b7280;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(45,106,79,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #f0f4f0;
+    color: #2d3a2e;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--green) 0%, #1b4332 100%);
+    color: white;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2352b788' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  header p {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    opacity: 0.82;
+    font-weight: 300;
+    position: relative;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* INTRO CARD */
+  .intro-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--green-light);
+  }
+  .intro-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--green);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .intro-card p { font-size: 0.93rem; line-height: 1.7; color: #444; }
+  .intro-card ul {
+    margin: 10px 0 0 18px;
+    font-size: 0.92rem;
+    line-height: 1.9;
+    color: #444;
+  }
+
+  /* SAFE SWAPS */
+  .swaps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .swap-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .swap-card .swap-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .swap-card .swap-out {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.88rem; color: #c0392b; margin-bottom: 4px;
+  }
+  .swap-card .swap-in {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.88rem; color: var(--green); font-weight: 600;
+  }
+
+  /* WEEK SECTION */
+  .week-section {
+    margin-bottom: 40px;
+  }
+  .week-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--brown);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--green-pale);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .week-title .week-num {
+    background: var(--green);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* DAY CARD */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .day-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+  .day-card:hover { transform: translateY(-2px); }
+
+  .day-header {
+    background: var(--green);
+    color: white;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day-header .day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+  }
+  .day-header .day-num {
+    font-size: 0.78rem;
+    opacity: 0.75;
+    font-weight: 300;
+  }
+
+  .day-card.date-night .day-header {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+  }
+
+  .meal-list { padding: 14px 18px; }
+  .meal-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+  }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 0 0;
+  }
+  .meal-type.b { color: #e67e22; }
+  .meal-type.l { color: var(--green); }
+  .meal-type.d { color: #6c3483; }
+
+  .meal-name { font-size: 0.88rem; line-height: 1.4; color: #2d3a2e; }
+  .meal-note {
+    font-size: 0.76rem;
+    color: var(--gray);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  .date-night-content {
+    padding: 18px;
+    text-align: center;
+  }
+  .date-night-icon { font-size: 2rem; margin-bottom: 8px; }
+  .date-night-content p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+  /* TIPS */
+  .tips-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+  }
+  .tips-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--green);
+    margin-bottom: 16px;
+    font-size: 1.25rem;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .tip-card {
+    background: var(--green-pale);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .tip-card strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .tip-card p { font-size: 0.83rem; color: #3a5a40; line-height: 1.5; }
+
+  /* SHOPPING LIST */
+  .shopping-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+  }
+  .shopping-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--green);
+    margin-bottom: 6px;
+    font-size: 1.25rem;
+  }
+  .shopping-section .sub { font-size: 0.85rem; color: var(--gray); margin-bottom: 18px; }
+  .shop-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .shop-cat h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--cream);
+  }
+  .shop-cat ul {
+    list-style: none;
+    font-size: 0.85rem;
+    line-height: 2;
+    color: #374151;
+  }
+  .shop-cat ul li::before {
+    content: '☐ ';
+    color: var(--green);
+  }
+
+  /* REINTRO */
+  .reintro-section {
+    background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
+    border: 2px solid var(--amber-light);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+  }
+  .reintro-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--amber);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  .reintro-section p { font-size: 0.9rem; color: #555; line-height: 1.7; margin-bottom: 10px; }
+  .reintro-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .reintro-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--amber-light);
+    color: #444;
+  }
+  .reintro-item strong { display: block; color: var(--brown); }
+
+  @media print {
+    body { background: white; }
+    .day-card:hover { transform: none; }
+    .main-wrap { padding: 0; }
+  }
+  @media (max-width: 600px) {
+    .days-grid { grid-template-columns: 1fr; }
+    header { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Gut Reset Protocol</div>
+  <h1>Greg & Reyna's Low-Gas Meal Plan</h1>
+  <p>2-Week Digestive Reset · Gluten-Free · Low-Carb · Anti-Inflammatory</p>
+</header>
+
+<div class="main-wrap">
+
+  <!-- INTRO -->
+  <div class="intro-card">
+    <h2>Why This Plan Works</h2>
+    <p>This two-week reset eliminates the most common gas-producing foods from your cookbook while keeping your meals satisfying, nutritious, and aligned with your weight loss and blood sugar goals. Every recipe is built around <strong>low-FODMAP vegetables</strong> — zucchini, spinach, green beans, romaine, cucumber, asparagus, and Swiss chard — which are widely available in Valle de Ángeles.</p>
+    <ul>
+      <li>All onion replaced with <strong>garlic-infused olive oil</strong> and <strong>chives or green onion tops only</strong></li>
+      <li>All garlic replaced with <strong>garlic-infused olive oil</strong> (the fructans stay in the bulb, the flavor comes through)</li>
+      <li>Cruciferous vegetables (broccoli, cauliflower, Brussels sprouts) <strong>temporarily removed</strong></li>
+      <li>Beans and legumes <strong>temporarily removed</strong> — reintroduce in Week 3</li>
+      <li>Bell peppers <strong>temporarily removed</strong> — substitute zucchini or cucumber</li>
+    </ul>
+  </div>
+
+  <!-- SAFE SWAPS -->
+  <div style="margin-bottom:12px;">
+    <h2 style="font-family:'Playfair Display',serif; color:var(--green); font-size:1.2rem; margin-bottom:14px;">Key Ingredient Swaps</h2>
+  </div>
+  <div class="swaps-grid" style="margin-bottom:32px;">
+    <div class="swap-card">
+      <div class="swap-label">Alliums</div>
+      <div class="swap-out">✕ Raw garlic &amp; onion</div>
+      <div class="swap-in">✓ Garlic-infused olive oil + chives</div>
+    </div>
+    <div class="swap-card">
+      <div class="swap-label">Cruciferous</div>
+      <div class="swap-out">✕ Broccoli, cauliflower, cabbage</div>
+      <div class="swap-in">✓ Zucchini, green beans, Swiss chard</div>
+    </div>
+    <div class="swap-card">
+      <div class="swap-label">Legumes</div>
+      <div class="swap-out">✕ Black beans, chickpeas, lentils</div>
+      <div class="swap-in">✓ Extra eggs, chicken, or fish protein</div>
+    </div>
+    <div class="swap-card">
+      <div class="swap-label">Bell Peppers</div>
+      <div class="swap-out">✕ Red, green, yellow peppers</div>
+      <div class="swap-in">✓ Cucumber, zucchini, asparagus</div>
+    </div>
+    <div class="swap-card">
+      <div class="swap-label">Smoothie Sweeteners</div>
+      <div class="swap-out">✕ Sugar alcohols (erythritol, xylitol)</div>
+      <div class="swap-in">✓ Stevia or monk fruit only</div>
+    </div>
+    <div class="swap-card">
+      <div class="swap-label">Cooking Method</div>
+      <div class="swap-out">✕ Raw or lightly cooked veg</div>
+      <div class="swap-in">✓ Fully cook all vegetables until tender</div>
+    </div>
+  </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-section">
+    <div class="week-title">
+      <span class="week-num">Week 1</span>
+      Days 1–7 · Digestive Reset
+    </div>
+    <div class="days-grid">
+
+      <!-- Day 1 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Monday</span>
+          <span class="day-num">Day 1</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Spinach &amp; Feta Egg Cups</div>
+              <div class="meal-note">Use chives instead of onion · Fully cook spinach</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Smoked Salmon Plate</div>
+              <div class="meal-note">Cucumber slices + romaine + avocado · No capers if sensitive</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Grilled Salmon with Zucchini &amp; Green Beans</div>
+              <div class="meal-note">Sub zucchini &amp; green beans for any cruciferous veg · Garlic-infused oil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Tuesday</span>
+          <span class="day-num">Day 2</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Green Power Smoothie</div>
+              <div class="meal-note">Drink slowly · Use stevia only · No sugar alcohols</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Grilled Chicken &amp; Romaine Bowl</div>
+              <div class="meal-note">Romaine, cucumber, avocado, olive oil + lemon dressing</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Baked Cod with Mediterranean Vegetables</div>
+              <div class="meal-note">Use zucchini &amp; asparagus only — no peppers or onion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Wednesday</span>
+          <span class="day-num">Day 3</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Cottage Cheese Protein Bowl</div>
+              <div class="meal-note">With berries + ground flaxseed · No fruit preserves with added sugar</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Tuna Lettuce Wraps (Modified)</div>
+              <div class="meal-note">Romaine cups · Tuna + avocado mayo · Cucumber · No white beans this week</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Italian Sausage &amp; Zucchini Skillet</div>
+              <div class="meal-note">GF sausage · Zucchini + spinach · Garlic-infused oil · Skip peppers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 4 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Thursday</span>
+          <span class="day-num">Day 4</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Greek Yogurt Power Bowl</div>
+              <div class="meal-note">Plain full-fat Greek yogurt · Berries + walnuts · No honey if blood sugar sensitive</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Smoked Salmon Plate</div>
+              <div class="meal-note">Repeat is fine — safe and satisfying</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Chicken Tikka (Modified)</div>
+              <div class="meal-note">Marinated chicken · Serve over cauliflower rice OR plain · Skip onion in sauce</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 5 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Friday</span>
+          <span class="day-num">Day 5</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Italian Sausage Frittata Muffins</div>
+              <div class="meal-note">Use chives + spinach only · No peppers · Make-ahead friendly</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Grilled Chicken &amp; Swiss Chard Bowl</div>
+              <div class="meal-note">Swiss chard sautéed in garlic-infused oil · Avocado + lemon</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Grilled Salmon with Asparagus</div>
+              <div class="meal-note">Asparagus tips only (tips are lower-FODMAP than stalks)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 6 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Saturday</span>
+          <span class="day-num">Day 6</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Smoked Salmon Plate (Brunch Style)</div>
+              <div class="meal-note">Add a poached egg · Cucumber + romaine + avocado</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Green Power Smoothie</div>
+              <div class="meal-note">Light lunch option · Drink slowly to minimize air intake</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Tom Ka Soup (Modified)</div>
+              <div class="meal-note">Coconut milk base · Chicken + zucchini · Skip mushrooms if sensitive · No lemongrass bulb (FODMAP)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Night -->
+      <div class="day-card date-night">
+        <div class="day-header">
+          <span class="day-name">Sunday — Date Night 🌙</span>
+          <span class="day-num">Day 7</span>
+        </div>
+        <div class="date-night-content">
+          <div class="date-night-icon">🍽️</div>
+          <p>Enjoy your date night! If eating out, safe lower-gas choices include grilled fish or chicken, plain rice, steamed vegetables, and simple salads with oil &amp; vinegar dressing. Avoid dishes heavy in onion, garlic, beans, or cream sauces.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-section">
+    <div class="week-title">
+      <span class="week-num">Week 2</span>
+      Days 8–14 · Consolidation
+    </div>
+    <div class="days-grid">
+
+      <!-- Day 8 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Monday</span>
+          <span class="day-num">Day 8</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Spinach &amp; Feta Egg Cups</div>
+              <div class="meal-note">Chives only · Fully cooked spinach</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Italian Antipasto Salad (Modified)</div>
+              <div class="meal-note">Romaine, olives, GF salami, cucumber · Oil &amp; vinegar · No artichokes or peppers</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Coconut Curry with Chicken (Modified)</div>
+              <div class="meal-note">Zucchini + spinach instead of onion &amp; peppers · Garlic-infused oil · Full-fat coconut milk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 9 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Tuesday</span>
+          <span class="day-num">Day 9</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Greek Yogurt Power Bowl</div>
+              <div class="meal-note">Try adding 1 tsp ground ginger — anti-bloating benefit</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Grilled Chicken &amp; Romaine Bowl</div>
+              <div class="meal-note">Add avocado + walnuts for healthy fats</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Grilled Salmon with Green Beans &amp; Zucchini</div>
+              <div class="meal-note">Simple preparation — olive oil, lemon, fresh herbs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 10 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Wednesday</span>
+          <span class="day-num">Day 10</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Green Power Smoothie</div>
+              <div class="meal-note">Stevia only · Sip slowly over 15–20 min</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Smoked Salmon Plate</div>
+              <div class="meal-note">With cucumber + avocado + romaine</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Mango Curry with Chicken (Modified)</div>
+              <div class="meal-note">Small ripe mango only · Zucchini sub for onion · Garlic-infused oil · Skip peppers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 11 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Thursday</span>
+          <span class="day-num">Day 11</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Cottage Cheese Protein Bowl</div>
+              <div class="meal-note">With strawberries + chia seeds</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Grilled Chicken &amp; Swiss Chard Bowl</div>
+              <div class="meal-note">Well-cooked chard · Avocado · Lemon-olive oil dressing</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Baked Cod with Asparagus Tips</div>
+              <div class="meal-note">Tips only · Lemon + olive oil + fresh herbs · Simple and clean</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 12 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Friday</span>
+          <span class="day-num">Day 12</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Italian Sausage Frittata Muffins</div>
+              <div class="meal-note">Batch cook 6 muffins · Reheat through the week</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Tuna Lettuce Wraps (Modified)</div>
+              <div class="meal-note">Romaine cups · Tuna + avocado mayo · Cucumber · Still no beans</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Chicken Tikka (Modified)</div>
+              <div class="meal-note">Yogurt marinade · Serve with cucumber raita + romaine</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 13 -->
+      <div class="day-card">
+        <div class="day-header">
+          <span class="day-name">Saturday</span>
+          <span class="day-num">Day 13</span>
+        </div>
+        <div class="meal-list">
+          <div class="meal-row">
+            <span class="meal-type b">Breakfast</span>
+            <div>
+              <div class="meal-name">Salmon &amp; Veggie Scramble (Modified)</div>
+              <div class="meal-note">Salmon + spinach + eggs · Chives only · No peppers</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type l">Lunch</span>
+            <div>
+              <div class="meal-name">Italian Antipasto Salad (Modified)</div>
+              <div class="meal-note">Romaine, olives, cucumber, GF salami · Simple oil &amp; vinegar</div>
+            </div>
+          </div>
+          <div class="meal-row">
+            <span class="meal-type d">Dinner</span>
+            <div>
+              <div class="meal-name">Tom Ka Soup (Modified)</div>
+              <div class="meal-note">Coconut milk · Chicken · Zucchini · Ginger · Skip lemongrass bulb</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Night 2 -->
+      <div class="day-card date-night">
+        <div class="day-header">
+          <span class="day-name">Sunday — Date Night 🌙</span>
+          <span class="day-num">Day 14</span>
+        </div>
+        <div class="date-night-content">
+          <div class="date-night-icon">🎉</div>
+          <p>Two weeks complete! You should notice significantly reduced bloating by now. Enjoy your date night — and next week you can begin reintroducing foods one at a time to find your personal tolerance levels.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAILY TIPS -->
+  <div class="tips-section">
+    <h2>Daily Digestive Support Tips</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <strong>🍵 Ginger Tea Before Meals</strong>
+        <p>Steep fresh ginger in hot water for 5 min before lunch and dinner. Well-evidenced for reducing bloating and improving gastric motility.</p>
+      </div>
+      <div class="tip-card">
+        <strong>🌿 Fennel After Meals</strong>
+        <p>Chew ½ tsp fennel seeds after dinner. A traditional remedy with solid research behind it for reducing gas production.</p>
+      </div>
+      <div class="tip-card">
+        <strong>🥄 Apple Cider Vinegar</strong>
+        <p>1 tsp in 4 oz water before meals. Supports stomach acid production and can reduce bloating, especially useful for Reyna.</p>
+      </div>
+      <div class="tip-card">
+        <strong>💊 Magnesium Timing</strong>
+        <p>Take your magnesium glycinate with dinner. It supports gut motility, which helps move gas through more efficiently.</p>
+      </div>
+      <div class="tip-card">
+        <strong>🍽️ Slow Down</strong>
+        <p>Aim for 20 minutes per meal minimum. Chew thoroughly — the digestive process begins in the mouth. Avoid eating while standing or distracted.</p>
+      </div>
+      <div class="tip-card">
+        <strong>💧 Hydration Timing</strong>
+        <p>Drink water between meals rather than with food. Large amounts of water during meals can dilute stomach acid and slow digestion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING LIST -->
+  <div class="shopping-section">
+    <h2>Two-Week Shopping List</h2>
+    <div class="sub">All low-FODMAP, gluten-free, and available in Valle de Ángeles · Buy fresh weekly where possible</div>
+    <div class="shop-cols">
+      <div class="shop-cat">
+        <h3>🥩 Protein</h3>
+        <ul>
+          <li>Salmon fillets (6–8 portions)</li>
+          <li>Cod or white fish (4 portions)</li>
+          <li>Smoked salmon (2 packs)</li>
+          <li>Chicken breast (2 kg)</li>
+          <li>GF Italian sausage (500g)</li>
+          <li>Canned tuna in olive oil (4 cans)</li>
+          <li>Eggs (3 dozen)</li>
+          <li>Cottage cheese (2 large tubs)</li>
+          <li>Full-fat Greek yogurt (1 kg)</li>
+          <li>Feta cheese (200g)</li>
+        </ul>
+      </div>
+      <div class="shop-cat">
+        <h3>🥬 Produce</h3>
+        <ul>
+          <li>Fresh spinach (2 large bags)</li>
+          <li>Romaine lettuce (4 heads)</li>
+          <li>Swiss chard (2 bunches)</li>
+          <li>Zucchini (8–10 medium)</li>
+          <li>Cucumber (6–8)</li>
+          <li>Asparagus (2 bunches)</li>
+          <li>Green beans (500g)</li>
+          <li>Avocados (10–12)</li>
+          <li>Lemons (8)</li>
+          <li>Fresh ginger root (1 large piece)</li>
+          <li>Chives or green onion tops (2 bunches)</li>
+          <li>Mixed berries frozen (1 kg bag)</li>
+          <li>Fresh strawberries (1 punnet)</li>
+          <li>Ripe mango (2, Week 2 only)</li>
+        </ul>
+      </div>
+      <div class="shop-cat">
+        <h3>🥛 Dairy & Refrigerated</h3>
+        <ul>
+          <li>Unsweetened almond milk (2 cartons)</li>
+          <li>Full-fat coconut milk (4 cans)</li>
+          <li>Protein powder, vanilla GF (1 tub)</li>
+          <li>Parmesan or hard cheese (150g)</li>
+          <li>GF salami or deli meat (200g)</li>
+        </ul>
+      </div>
+      <div class="shop-cat">
+        <h3>🫙 Pantry</h3>
+        <ul>
+          <li>Garlic-infused olive oil (500ml)</li>
+          <li>Extra virgin olive oil (500ml)</li>
+          <li>Apple cider vinegar (1 bottle)</li>
+          <li>Ground flaxseed (1 bag)</li>
+          <li>Chia seeds (1 bag)</li>
+          <li>Walnuts (200g)</li>
+          <li>Olives, pitted (2 jars)</li>
+          <li>Canned tuna in olive oil (4 cans)</li>
+          <li>GF gluten-free tamari or coconut aminos</li>
+          <li>Stevia or monk fruit sweetener</li>
+          <li>Fennel seeds (1 small jar)</li>
+        </ul>
+      </div>
+      <div class="shop-cat">
+        <h3>🌿 Herbs & Spices</h3>
+        <ul>
+          <li>Fresh herbs: cilantro, parsley, basil</li>
+          <li>Dried: cumin, turmeric, coriander</li>
+          <li>Smoked paprika (GF)</li>
+          <li>Ground ginger (dried)</li>
+          <li>Bay leaves</li>
+          <li>Sea salt &amp; black pepper</li>
+          <li>Curry powder (check GF label)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- REINTRODUCTION GUIDE -->
+  <div class="reintro-section">
+    <h2>Week 3+ Reintroduction Plan</h2>
+    <p>After two weeks on this reset plan, your gut microbiome will have adapted and inflammation should be reduced. Reintroduce foods <strong>one at a time, one per week</strong>, and note any symptoms in the days following. This tells you which specific foods are problematic for each of you — your tolerances may differ.</p>
+    <p>Keep a simple note on your phone: date, food reintroduced, any symptoms within 48 hours.</p>
+    <div class="reintro-list">
+      <div class="reintro-item"><strong>Week 3</strong>Well-cooked broccoli (small portion, fully steamed)</div>
+      <div class="reintro-item"><strong>Week 4</strong>Well-rinsed canned black beans (¼ cup portion)</div>
+      <div class="reintro-item"><strong>Week 5</strong>Cooked garlic (in sauces, not raw)</div>
+      <div class="reintro-item"><strong>Week 6</strong>Cooked onion (well caramelized reduces FODMAPs)</div>
+      <div class="reintro-item"><strong>Week 7</strong>Bell peppers (cooked, not raw)</div>
+      <div class="reintro-item"><strong>Week 8</strong>Chickpeas (small portion, thoroughly rinsed)</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
