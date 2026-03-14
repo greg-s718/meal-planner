@@ -1,333 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greg & Reyna's Complete Cookbook</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        h1 {
-            color: #C55A11;
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .subtitle {
-            font-size: 1.5em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .version {
-            color: #999;
-            font-style: italic;
-            font-size: 1.1em;
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .hero-section h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        
-        .hero-section p {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            opacity: 0.95;
-        }
-        
-        .main-nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        
-        .nav-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            cursor: pointer;
-        }
-        
-        .nav-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border-color: #C55A11;
-        }
-        
-        .nav-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .nav-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-        
-        .nav-card h3 {
-            color: #2d3748;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-        
-        .nav-card p {
-            color: #666;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-        
-        .features {
-            margin: 60px 0;
-        }
-        
-        .features h2 {
-            color: #C55A11;
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        
-        .feature-item {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #C55A11;
-        }
-        
-        .feature-item h4 {
-            color: #2d3748;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-        
-        .feature-item p {
-            color: #666;
-            line-height: 1.8;
-        }
-        
-        .how-to-use {
-            background: #fff9e6;
-            border: 3px solid #ffa500;
-            border-radius: 15px;
-            padding: 40px;
-            margin: 50px 0;
-        }
-        
-        .how-to-use h2 {
-            color: #C55A11;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-        }
-        
-        .how-to-use ol {
-            font-size: 1.2em;
-            line-height: 2.5;
-            padding-left: 30px;
-        }
-        
-        .how-to-use ol li {
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
-        
-        .pro-tip {
-            background: #d4edda;
-            border-left: 5px solid #28a745;
-            padding: 25px;
-            margin: 40px 0;
-            border-radius: 8px;
-        }
-        
-        .pro-tip strong {
-            color: #155724;
-            font-size: 1.3em;
-        }
-        
-        .pro-tip p {
-            color: #155724;
-            font-size: 1.1em;
-            margin-top: 10px;
-            line-height: 1.8;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 2px solid #e2e8f0;
-            color: #666;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px;
-            }
-            h1 {
-                font-size: 2.5em;
-            }
-            .nav-card {
-                padding: 25px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greg & Reyna — Health Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --brown: #5c3d2e;
+    --orange: #c55a11;
+    --orange-light: #e07b3a;
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --blue: #1d4e7a;
+    --blue-pale: #dbeeff;
+    --rose: #9b2c5e;
+    --rose-pale: #fce8f1;
+    --amber: #e76f51;
+    --cream: #fffbf5;
+    --gray: #6b7280;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: #2d3a2e;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--brown) 0%, #3a2418 100%);
+    color: white;
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23e07b3a' fill-opacity='0.06'%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-names {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .header-names span { color: var(--orange-light); }
+  .header-sub {
+    font-size: 0.95rem;
+    opacity: 0.75;
+    font-weight: 300;
+    position: relative;
+    letter-spacing: 0.5px;
+  }
+  .header-badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    position: relative;
+  }
+  .header-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  /* MAIN */
+  .main-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 36px 16px 60px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 14px;
+    margin-top: 36px;
+    padding-left: 4px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* CARD GRID */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .card-grid.two-col {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .card-grid.three-col {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .card-accent {
+    height: 5px;
+  }
+  .accent-orange { background: linear-gradient(90deg, var(--orange), var(--orange-light)); }
+  .accent-green  { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+  .accent-blue   { background: linear-gradient(90deg, var(--blue), #4a9fd4); }
+  .accent-rose   { background: linear-gradient(90deg, var(--rose), #c2507a); }
+  .accent-amber  { background: linear-gradient(90deg, var(--amber), #f4a261); }
+
+  .card-body {
+    padding: 20px 22px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #1a2e1b;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.84rem;
+    color: var(--gray);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+  .tag-orange { background: #fff0e6; color: var(--orange); }
+  .tag-green  { background: var(--green-pale); color: var(--green); }
+  .tag-blue   { background: var(--blue-pale); color: var(--blue); }
+  .tag-rose   { background: var(--rose-pale); color: var(--rose); }
+  .tag-amber  { background: #fff3ee; color: #c2410c; }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray);
+    gap: 4px;
+  }
+
+  /* HERO CARD (full width) */
+  .hero-card {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--brown) 100%);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    box-shadow: 0 6px 24px rgba(197,90,17,0.25);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 0;
+  }
+  .hero-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 36px rgba(197,90,17,0.35);
+  }
+  .hero-card .hero-icon { font-size: 2.2rem; margin-bottom: 10px; }
+  .hero-card .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+  .hero-card .hero-desc {
+    font-size: 0.88rem;
+    opacity: 0.85;
+    line-height: 1.65;
+    max-width: 600px;
+  }
+  .hero-card .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .hero-chip {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 12px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 28px 16px 40px;
+    font-size: 0.78rem;
+    color: #aaa;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 16px;
+  }
+  footer strong { color: var(--orange); }
+
+  /* OFFLINE NOTICE */
+  .offline-notice {
+    background: var(--green-pale);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+  .offline-notice span { font-size: 1.4rem; }
+
+  @media (max-width: 500px) {
+    .card-grid.three-col { grid-template-columns: 1fr; }
+    .card-grid.two-col   { grid-template-columns: 1fr; }
+    header { padding: 28px 16px; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🍳 Greg & Reyna's Complete Cookbook</h1>
-            <p class="subtitle">106 Low-Carb, Gluten-Free Recipes for Honduras Living</p>
-            <p class="version">Version 2.0 - Working Prototype</p>
-        </header>
-        
-        <div class="hero-section">
-            <h2>Welcome to Your Interactive Cookbook!</h2>
-            <p>🌶️ All Spicy Recipes Include MILD Versions</p>
-            <p>📱 Works Offline - Perfect for Honduras</p>
-            <p>🎯 Customized Portions for Greg & Reyna</p>
-        </div>
-        
-        <div class="main-nav">
-            <div class="nav-card">
-                <a href="recipes.html">
-                    <div class="nav-icon">📖</div>
-                    <h3>View All Recipes</h3>
-                    <p>Browse 72+ complete recipes with full ingredients, instructions, and nutritional information. Filter by meal type, cuisine, or spice level.</p>
-                </a>
-            </div>
-            
-            <div class="nav-card">
-                <a href="calculator.html">
-                    <div class="nav-icon">🧮</div>
-                    <h3>Meal Planner & Calculator</h3>
-                    <p>Select recipes for your week, choose how many times to make each one, and generate smart shopping lists and prep guides.</p>
-                </a>
-            </div>
-        </div>
-        
-        <div class="features">
-            <h2>✨ What's Inside</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h4>🍳 17 Breakfast Recipes</h4>
-                    <p>Protein-packed morning meals to start your day right</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🥗 19 Lunch Recipes</h4>
-                    <p>Satisfying midday meals with international flavors</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🍽️ 26 Dinner Recipes</h4>
-                    <p>Delicious evening options from around the world</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🥜 13 Snacks & Drinks</h4>
-                    <p>Healthy options for between meals</p>
-                </div>
-                <div class="feature-item">
-                    <h4>✨ 11+ Extras</h4>
-                    <p>Spice blends, dressings, marinades, and treats</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🔢 Quantity Selectors</h4>
-                    <p>Choose how many times to make each recipe (1x, 2x, 3x+)</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🛒 Smart Shopping Lists</h4>
-                    <p>Auto-generated with consolidated quantities</p>
-                </div>
-                <div class="feature-item">
-                    <h4>📋 Prep Guides</h4>
-                    <p>Sunday meal prep instructions for the week</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="how-to-use">
-            <h2>🎯 How to Use This Cookbook</h2>
-            <ol>
-                <li><strong>Browse Recipes:</strong> Click "View All Recipes" to explore all 72+ options with complete details</li>
-                <li><strong>Filter & Search:</strong> Use dropdowns to filter by meal type, cuisine type, or spice level</li>
-                <li><strong>Plan Your Week:</strong> Go to the Meal Planner to select recipes for your week</li>
-                <li><strong>Choose Quantities:</strong> For each recipe, select how many times you'll make it (1x, 2x, 3x)</li>
-                <li><strong>Generate Lists:</strong> Get your shopping list and Sunday prep guide automatically</li>
-                <li><strong>Cook & Enjoy:</strong> Follow the detailed instructions with portions for both Greg and Reyna</li>
-            </ol>
-        </div>
-        
-        <div class="pro-tip">
-            <strong>💡 Pro Tips:</strong>
-            <p>• Save these HTML files to your device for offline access in Honduras<br>
-            • Most recipes serve 2 (Greg's larger portion + Reyna's smaller portion)<br>
-            • Plan for 6 meals per week, leaving 1 day for date night<br>
-            • Use quantity selectors if you want to eat the same recipe multiple times<br>
-            • All files are editable - easy to add, remove, or modify recipes</p>
-        </div>
-        
-        <div class="how-to-use">
-            <h2>📝 Easy Editing Instructions</h2>
-            <p style="font-size: 1.1em; margin-bottom: 20px;">This cookbook is designed to be easy to customize!</p>
-            <ul style="line-height: 2; font-size: 1.1em; list-style-position: inside;">
-                <li><strong>To remove a recipe:</strong> Open recipes.html or calculator.html in a text editor, find the recipe (clearly labeled), and delete that section</li>
-                <li><strong>To add a recipe:</strong> Copy an existing recipe template, modify the details, and save</li>
-                <li><strong>To edit ingredients/portions:</strong> Find the recipe and update the values directly</li>
-                <li>All recipes are clearly marked with comments like <code>&lt;!-- RECIPE #B001 --&gt;</code></li>
-            </ul>
-        </div>
-        
-        <footer>
-            <p><strong>Greg & Reyna's Complete Interactive Cookbook</strong></p>
-            <p>Created January 2026 • Works Offline • Easy to Edit</p>
-            <p style="margin-top: 15px; color: #999;">Ready for your adventure in Honduras! 🇭🇳</p>
-        </footer>
+
+<header>
+  <div class="header-names">Greg <span>&</span> Reyna</div>
+  <div class="header-sub">Honduras Health & Wellness System</div>
+  <div class="header-badge-row">
+    <span class="header-badge">Gluten-Free</span>
+    <span class="header-badge">Low-Carb</span>
+    <span class="header-badge">Works Offline</span>
+    <span class="header-badge">Anti-Inflammatory</span>
+  </div>
+</header>
+
+<div class="main-wrap">
+
+  <!-- OFFLINE NOTICE -->
+  <div class="offline-notice">
+    <span>📵</span>
+    All tools on this site work fully offline — no internet required in Valle de Ángeles.
+  </div>
+
+  <!-- COOKBOOK -->
+  <div class="section-label">Recipe System</div>
+  <a href="recipes.html" class="hero-card" style="margin-bottom:16px;">
+    <div class="hero-icon">📖</div>
+    <div class="hero-title">Recipe Browser</div>
+    <div class="hero-desc">Browse all 106+ gluten-free, low-carb recipes. Filter by meal type, cuisine, and spice level. Every recipe celiac-safe with full ingredient lists and instructions.</div>
+    <div class="hero-meta">
+      <span class="hero-chip">106+ Recipes</span>
+      <span class="hero-chip">Filter & Search</span>
+      <span class="hero-chip">Honduran & International</span>
     </div>
+  </a>
+
+  <div class="card-grid two-col" style="margin-bottom:0;">
+    <a href="meal-planner.html" class="card">
+      <div class="card-accent accent-orange"></div>
+      <div class="card-body">
+        <div class="card-icon">🛒</div>
+        <div class="card-title">Meal Planner & Shopping List</div>
+        <div class="card-desc">Select your 6 meals for the week, set quantities, and generate an automatic shopping list organized by store section.</div>
+        <div class="card-tags">
+          <span class="tag tag-orange">Weekly Planner</span>
+          <span class="tag tag-orange">Auto Shopping List</span>
+        </div>
+        <div class="card-arrow">Open planner →</div>
+      </div>
+    </a>
+
+    <a href="low-gas-meal-plan.html" class="card">
+      <div class="card-accent accent-green"></div>
+      <div class="card-body">
+        <div class="card-icon">🌿</div>
+        <div class="card-title">2-Week Low-Gas Meal Plan</div>
+        <div class="card-desc">Digestive reset plan eliminating gas-producing foods. Includes daily meals, ingredient swaps, shopping list, and Week 3+ reintroduction schedule.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Gut Reset</span>
+          <span class="tag tag-green">Low-FODMAP</span>
+          <span class="tag tag-green">14 Days</span>
+        </div>
+        <div class="card-arrow">Open plan →</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="section-label">Exercise Plans</div>
+  <div class="card-grid two-col">
+
+    <a href="exercise-plan.html" class="card">
+      <div class="card-accent accent-blue"></div>
+      <div class="card-body">
+        <div class="card-icon">💪</div>
+        <div class="card-title">Greg's Weekly Exercise Plan</div>
+        <div class="card-desc">7-day resistance and cardio program. Fully modified for hiatal hernia, neck, back, shoulder, and knee considerations. Color-coded safety guide for every exercise.</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Hiatal Hernia Safe</span>
+          <span class="tag tag-blue">Joint Friendly</span>
+          <span class="tag tag-blue">Visceral Fat Focus</span>
+        </div>
+        <div class="card-arrow">Open Greg's plan →</div>
+      </div>
+    </a>
+
+    <a href="reyna-exercise-plan.html" class="card">
+      <div class="card-accent accent-rose"></div>
+      <div class="card-body">
+        <div class="card-icon">🌸</div>
+        <div class="card-title">Reyna's Weekly Exercise Plan</div>
+        <div class="card-desc">Resistance-first 7-day program designed to build muscle and support medication reduction. Modified for wrist and knee safety, with thyroid-aware guidance throughout.</div>
+        <div class="card-tags">
+          <span class="tag tag-rose">Wrist & Knee Safe</span>
+          <span class="tag tag-rose">Thyroid Aware</span>
+          <span class="tag tag-rose">Resistance-First</span>
+        </div>
+        <div class="card-arrow">Open Reyna's plan →</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="section-label">Quick Reference</div>
+  <div class="card-grid three-col">
+
+    <div class="card" style="cursor:default;">
+      <div class="card-accent accent-green"></div>
+      <div class="card-body">
+        <div class="card-icon">💊</div>
+        <div class="card-title">Daily Supplements</div>
+        <div class="card-desc">Berberine · Vitamin D3+K2 · Magnesium Glycinate · Omega-3 · Selenium · Zinc+Copper · Lutein+Zeaxanthin</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Take with meals</span>
+          <span class="tag tag-green">Mag at bedtime</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="cursor:default;">
+      <div class="card-accent accent-orange"></div>
+      <div class="card-body">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Greg's Health Targets</div>
+        <div class="card-desc">HbA1c below 5.6% · Blood pressure reduction · Cholesterol improvement · Visceral fat loss · Energy increase</div>
+        <div class="card-tags">
+          <span class="tag tag-orange">Track monthly</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="cursor:default;">
+      <div class="card-accent accent-rose"></div>
+      <div class="card-body">
+        <div class="card-icon">🦋</div>
+        <div class="card-title">Reyna's Health Targets</div>
+        <div class="card-desc">Medication reduction · Energy improvement · Thyroid optimization · Muscle building · Body composition change</div>
+        <div class="card-tags">
+          <span class="tag tag-rose">Track monthly</span>
+          <span class="tag tag-rose">90–100g protein/day</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <strong>Greg & Reyna's Honduras Health System</strong><br>
+  All content works offline · Gluten-free · Low-carb · Anti-inflammatory<br>
+  Built for Valle de Ángeles, Honduras
+</footer>
+
 </body>
-</html>
