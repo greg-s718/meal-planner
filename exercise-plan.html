@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greg — Weekly Exercise Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --blue: #1d4e7a;
+    --blue-mid: #2d6fa3;
+    --blue-light: #4a9fd4;
+    --blue-pale: #dbeeff;
+    --amber: #e76f51;
+    --amber-light: #f4a261;
+    --cream: #fefae0;
+    --slate: #374151;
+    --gray: #6b7280;
+    --green: #2d6a4f;
+    --red-soft: #fee2e2;
+    --red: #dc2626;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(29,78,122,0.10);
+    --bg: #f0f4f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--slate);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--blue) 0%, #0f2d4a 100%);
+    color: white;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%234a9fd4' fill-opacity='0.07'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  header .header-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    position: relative;
+  }
+  header p {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    opacity: 0.82;
+    font-weight: 300;
+    position: relative;
+  }
+
+  /* LAYOUT */
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* HERNIA ALERT */
+  .hernia-alert {
+    background: linear-gradient(135deg, #fff1f0 0%, #fff8f6 100%);
+    border: 2px solid #fca5a5;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .hernia-alert h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--red);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hernia-alert ul {
+    margin: 8px 0 0 18px;
+    font-size: 0.88rem;
+    line-height: 2;
+    color: #555;
+  }
+  .hernia-alert p { font-size: 0.88rem; color: #555; line-height: 1.7; }
+
+  /* JOINT LEGEND */
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .legend-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-green { background: #22c55e; }
+  .dot-amber { background: #f59e0b; }
+  .dot-red { background: #ef4444; }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--blue);
+    margin: 32px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--blue-pale);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .section-tag {
+    background: var(--blue);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* DAYS GRID */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    margin-bottom: 8px;
+  }
+
+  /* DAY CARD */
+  .day-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+  .day-card:hover { transform: translateY(-2px); }
+
+  .day-header {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day-header .day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+  }
+  .day-header .day-type {
+    font-size: 0.72rem;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .day-card.rest-day .day-header {
+    background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+  }
+  .day-card.cardio-day .day-header {
+    background: linear-gradient(135deg, var(--green) 0%, #52b788 100%);
+  }
+  .day-card.date-day .day-header {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+  }
+
+  .day-body { padding: 16px 18px; }
+
+  /* PHASE LABEL */
+  .phase-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .phase-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+  /* EXERCISE ROW */
+  .ex-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.87rem;
+  }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .ex-dot.safe { background: #22c55e; }
+  .ex-dot.caution { background: #f59e0b; }
+  .ex-dot.avoid { background: #ef4444; }
+
+  .ex-name { font-weight: 600; color: var(--slate); }
+  .ex-detail { font-size: 0.78rem; color: var(--gray); margin-top: 1px; }
+  .ex-hernia {
+    font-size: 0.72rem;
+    background: #fff1f0;
+    color: #b91c1c;
+    padding: 1px 7px;
+    border-radius: 6px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+  .ex-mod {
+    font-size: 0.72rem;
+    background: #fefce8;
+    color: #92400e;
+    padding: 1px 7px;
+    border-radius: 6px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+
+  /* AVOID BOX */
+  .avoid-box {
+    background: var(--red-soft);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+  }
+  .avoid-box strong {
+    font-size: 0.75rem;
+    color: var(--red);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .avoid-box ul {
+    margin-left: 14px;
+    font-size: 0.8rem;
+    color: #7f1d1d;
+    line-height: 1.8;
+  }
+
+  /* REST/RECOVERY */
+  .rest-content {
+    padding: 16px 18px;
+    text-align: center;
+  }
+  .rest-icon { font-size: 2rem; margin-bottom: 8px; }
+  .rest-content p { font-size: 0.87rem; color: var(--gray); line-height: 1.6; }
+  .rest-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .rest-chip {
+    background: var(--blue-pale);
+    color: var(--blue);
+    font-size: 0.78rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  /* HERNIA CORE SECTION */
+  .core-safe-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .core-safe-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--blue);
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+  .core-safe-section .sub {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 18px;
+  }
+  .core-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .core-card {
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .core-card.safe-ex { background: #f0fdf4; border-left: 3px solid #22c55e; }
+  .core-card.avoid-ex { background: var(--red-soft); border-left: 3px solid #ef4444; }
+  .core-card strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .core-card.safe-ex strong { color: #15803d; }
+  .core-card.avoid-ex strong { color: var(--red); }
+  .core-card ul {
+    list-style: none;
+    font-size: 0.83rem;
+    line-height: 1.9;
+    color: #374151;
+  }
+  .core-card ul li::before { content: '• '; }
+
+  /* HERNIA LIFESTYLE */
+  .lifestyle-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .lifestyle-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--blue);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  .lifestyle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .lifestyle-card {
+    background: var(--blue-pale);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .lifestyle-card strong {
+    display: block;
+    font-size: 0.83rem;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .lifestyle-card p { font-size: 0.82rem; color: #1e3a5f; line-height: 1.55; }
+
+  /* PROGRESSION */
+  .progression-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .progression-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--blue);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .prog-card {
+    background: linear-gradient(135deg, var(--blue-pale) 0%, white 100%);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-top: 3px solid var(--blue-light);
+  }
+  .prog-card .prog-week {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin-bottom: 6px;
+  }
+  .prog-card p { font-size: 0.83rem; color: #374151; line-height: 1.55; }
+
+  /* STOP SIGNS */
+  .stop-section {
+    background: linear-gradient(135deg, #fff1f0 0%, #fff 100%);
+    border: 2px solid #fca5a5;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+  }
+  .stop-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--red);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .stop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .stop-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.84rem;
+    border-left: 3px solid #fca5a5;
+    color: #555;
+    line-height: 1.5;
+  }
+  .stop-item strong { display: block; color: var(--red); font-size: 0.82rem; }
+
+  @media print { body { background: white; } .day-card:hover { transform: none; } }
+  @media (max-width: 600px) { .days-grid { grid-template-columns: 1fr; } header { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Modified for Hiatal Hernia</div>
+  <h1>Greg's Weekly Exercise Plan</h1>
+  <p>Joint-Safe · Hernia-Aware · Visceral Fat Focused · Age 60</p>
+</header>
+
+<div class="main-wrap">
+
+  <!-- HERNIA ALERT -->
+  <div class="hernia-alert">
+    <h2>⚠️ Hiatal Hernia — Key Exercise Principles</h2>
+    <p>Your exercise program has been specifically modified to avoid increasing intra-abdominal pressure, which is the primary mechanical risk with a hiatal hernia. Every workout below reflects these modifications. As you lose visceral fat, intra-abdominal pressure will naturally decrease and symptoms will improve.</p>
+    <ul>
+      <li>Never hold your breath during any exercise — exhale on effort, always</li>
+      <li>Avoid any exercise that compresses or crunches the abdomen</li>
+      <li>Core work focuses on bracing and stability, not flexion or compression</li>
+      <li>Wait 2 hours after eating before any workout</li>
+      <li>Stop and rest if you feel chest pressure, reflux, or difficulty breathing</li>
+    </ul>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend-row">
+    <div class="legend-chip"><span class="dot dot-green"></span> Safe as written</div>
+    <div class="legend-chip"><span class="dot dot-amber"></span> Use modification noted</div>
+    <div class="legend-chip"><span class="dot dot-red"></span> Avoid — hernia or joint risk</div>
+    <div class="legend-chip" style="background:#fefce8; color:#92400e;">🔶 Hernia mod</div>
+    <div class="legend-chip" style="background:#f0fdf4; color:#15803d;">🔷 Joint mod</div>
+  </div>
+
+  <!-- WEEKLY SCHEDULE -->
+  <div class="section-title">
+    <span class="section-tag">Week Structure</span>
+    7-Day Program
+  </div>
+
+  <div class="days-grid">
+
+    <!-- MONDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Monday</span>
+        <span class="day-type">Upper Body</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 10 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Arm circles + shoulder rolls</div>
+            <div class="ex-detail">10 reps each direction · Standing</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Chin tucks</div>
+            <div class="ex-detail">10 reps · Seated · Neck prep</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band pull-aparts</div>
+            <div class="ex-detail">15 reps · Light band · Shoulder warm-up</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Resistance Training · 25–30 min</div>
+        <div class="ex-row">
+          <span class="ex-dot caution"></span>
+          <div>
+            <div class="ex-name">Seated Dumbbell Press</div>
+            <div class="ex-detail">3 × 10–12 reps · Seated, back supported</div>
+            <span class="ex-hernia">🔶 Seated only — no standing overhead press</span>
+            <span class="ex-mod">🔷 Stop at 90° if shoulder catches</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Chest Press</div>
+            <div class="ex-detail">3 × 12–15 reps · Anchor at chest height</div>
+            <span class="ex-mod">🔷 45° elbow angle — protects shoulder</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Dumbbell Rows (supported)</div>
+            <div class="ex-detail">3 × 10–12 each arm · Brace hand on bench</div>
+            <span class="ex-hernia">🔶 Keep torso at 45°, not fully horizontal</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Lateral Raises</div>
+            <div class="ex-detail">3 × 12–15 reps · Light weight · Stop at shoulder height</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Bicep Curls</div>
+            <div class="ex-detail">3 × 10–12 reps · Seated or standing</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot caution"></span>
+          <div>
+            <div class="ex-name">Overhead Tricep Extension</div>
+            <div class="ex-detail">3 × 10–12 reps</div>
+            <span class="ex-hernia">🔶 Seated only · Exhale on extension</span>
+            <span class="ex-mod">🔷 Switch to tricep pushdown (band) if neck strain</span>
+          </div>
+        </div>
+
+        <div class="phase-label">Finisher · 5 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Step-touches (modified jumping jacks)</div>
+            <div class="ex-detail">30 sec on / 30 sec rest × 5 rounds · Low impact</div>
+            <span class="ex-hernia">🔶 No jumping — step only. Jumping spikes intra-abdominal pressure</span>
+          </div>
+        </div>
+
+        <div class="avoid-box">
+          <strong>❌ Avoid Monday</strong>
+          <ul>
+            <li>Standing overhead press with heavy weight</li>
+            <li>Jumping jacks (any impact)</li>
+            <li>Holding breath on any rep</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUESDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Tuesday</span>
+        <span class="day-type">Lower Body</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 10 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Hip circles + leg swings</div>
+            <div class="ex-detail">10 each direction · Hold wall for balance</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Ankle circles + march in place</div>
+            <div class="ex-detail">30 seconds each · Loosens lower limbs</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Resistance Training · 25 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Goblet Squats</div>
+            <div class="ex-detail">3 × 10–12 reps · Light dumbbell at chest</div>
+            <span class="ex-hernia">🔶 Exhale as you stand up · Never hold breath at bottom</span>
+            <span class="ex-mod">🔷 Partial range only — stop before knee pain</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Romanian Deadlifts</div>
+            <div class="ex-detail">3 × 10–12 reps · Hip hinge, neutral spine</div>
+            <span class="ex-hernia">🔶 Light-moderate weight only · Brace core gently — do not bear down</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Reverse Lunges</div>
+            <div class="ex-detail">3 × 8–10 each leg · Step back, not forward</div>
+            <span class="ex-mod">🔷 Hold wall or chair if balance is an issue</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">BOSU Calf Raises</div>
+            <div class="ex-detail">3 × 15–20 reps · Flat side up for stability</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Glute Bridges</div>
+            <div class="ex-detail">3 × 12–15 reps · Lying on back · Feet flat</div>
+            <span class="ex-hernia">🔶 Do NOT add weight on abdomen — bodyweight only</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Side-Lying Leg Lifts</div>
+            <div class="ex-detail">2 × 12–15 each side · Slow and controlled</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Post-Workout</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">20-minute walk with Reyna</div>
+            <div class="ex-detail">Moderate pace · Flat or gentle terrain preferred</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEDNESDAY -->
+    <div class="day-card cardio-day">
+      <div class="day-header">
+        <span class="day-name">Wednesday</span>
+        <span class="day-type">Core + Cardio</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Core Work · 15–20 min (Hernia-Safe)</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Dead Bug</div>
+            <div class="ex-detail">3 × 10 each side · Lying on back · Slow</div>
+            <span class="ex-hernia">🔶 Keep lower back pressed to floor throughout · Exhale slowly on each extension</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Bird Dog</div>
+            <div class="ex-detail">3 × 10 each side · On hands and knees</div>
+            <span class="ex-hernia">🔶 Best hernia-safe core exercise — no intra-abdominal compression</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Modified Side Plank (on knee)</div>
+            <div class="ex-detail">3 × 20–30 sec each side · Bottom knee down</div>
+            <span class="ex-hernia">🔶 Breathe normally throughout — never hold breath</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot caution"></span>
+          <div>
+            <div class="ex-name">Standard Plank (on knees)</div>
+            <div class="ex-detail">2 × 20–30 sec · Forearms on floor</div>
+            <span class="ex-hernia">🔶 Knee plank only — full plank creates too much IAP for hernia</span>
+          </div>
+        </div>
+
+        <div class="avoid-box">
+          <strong>❌ Core Exercises to Permanently Avoid</strong>
+          <ul>
+            <li>Crunches or sit-ups (any variation)</li>
+            <li>Leg raises (double or single)</li>
+            <li>V-sits or boat pose</li>
+            <li>Russian twists with weight</li>
+            <li>Full plank (progress to this only after significant fat loss)</li>
+          </ul>
+        </div>
+
+        <div class="phase-label">Cardio · 30–40 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Fasted morning walk (preferred)</div>
+            <div class="ex-detail">Before breakfast · Moderate pace · Flat terrain</div>
+            <span class="ex-hernia">🔶 Walking is ideal cardio for hiatal hernia — upright posture, no impact</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Alternative: Stationary bike</div>
+            <div class="ex-detail">20–30 min · Low resistance · Upright position</div>
+            <span class="ex-hernia">🔶 Avoid hunching forward over handlebars — compresses hernia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THURSDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Thursday</span>
+        <span class="day-type">Full Body Circuit</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 10 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Dynamic full-body prep</div>
+            <div class="ex-detail">Arm swings, hip circles, leg swings, shoulder rolls</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Circuit · 2–3 rounds</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">BOSU Squats (bodyweight)</div>
+            <div class="ex-detail">12 reps · Flat side up · Arms forward for balance</div>
+            <span class="ex-hernia">🔶 Exhale steadily as you rise · Never hold breath</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Chest Press</div>
+            <div class="ex-detail">15 reps · Standing or seated · Anchor behind</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Dumbbell Rows</div>
+            <div class="ex-detail">10 reps each arm · Supported on bench</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Shoulder Press (seated)</div>
+            <div class="ex-detail">15 reps · Sit on BOSU flat side down for instability challenge</div>
+            <span class="ex-hernia">🔶 Seated only · Light resistance band</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">BOSU Balance Hold</div>
+            <div class="ex-detail">30 sec standing on flat side · Eyes open, then try eyes closed</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Bicep Curls</div>
+            <div class="ex-detail">15 reps · Standing, step on band</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Tricep Pushdowns</div>
+            <div class="ex-detail">15 reps · Anchor band at height · Replaces overhead extension on circuit days</div>
+            <span class="ex-hernia">🔶 Preferred over overhead extension for hernia safety</span>
+          </div>
+        </div>
+
+        <div class="phase-label">Rest between rounds</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">2–3 minutes full rest between rounds</div>
+            <div class="ex-detail">Sit upright · Breathe normally · Sip water</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="day-card cardio-day">
+      <div class="day-header">
+        <span class="day-name">Friday</span>
+        <span class="day-type">Cardio</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Main Cardio · 30–45 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Interval Walking</div>
+            <div class="ex-detail">2 min brisk / 1 min easy × 10 rounds</div>
+            <span class="ex-hernia">🔶 Best option — upright posture, no impact, no IAP spike</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Alternative: Steady-state walk</div>
+            <div class="ex-detail">45 min moderate pace · Can walk with Reyna</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Flexibility · 15 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Neck side bend + rotation</div>
+            <div class="ex-detail">30 sec each side · Gentle · No neck circles</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Doorway chest stretch</div>
+            <div class="ex-detail">60 sec each side · Critical for shoulder health</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Cat-cow</div>
+            <div class="ex-detail">10 slow cycles · Spinal mobility</div>
+            <span class="ex-hernia">🔶 Excellent for hernia — decompresses the spine and abdomen</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Child's pose</div>
+            <div class="ex-detail">60–90 sec · Knees wide · Arms forward</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Knee-to-chest stretch</div>
+            <div class="ex-detail">30 sec each side + both together · Lower back relief</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SATURDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Saturday</span>
+        <span class="day-type">Full Body + Flexibility</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Light Full-Body Circuit · 20 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wall Squats</div>
+            <div class="ex-detail">3 × 10–12 · Back against wall · Easier on knees</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wall Push-Ups</div>
+            <div class="ex-detail">3 × 12 · Hands at chest height</div>
+            <span class="ex-hernia">🔶 Wall only — floor push-ups create significant IAP</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Pull-Aparts</div>
+            <div class="ex-detail">3 × 15 · Shoulder + upper back</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Clamshells with band</div>
+            <div class="ex-detail">3 × 15 each side · Hip strengthening</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Extended Flexibility · 20–25 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Full flexibility routine</div>
+            <div class="ex-detail">Neck · Shoulders · Back · Hips · Hamstrings</div>
+            <span class="ex-hernia">🔶 Saturday is the day to be thorough — this actively reduces hernia symptoms long-term</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Diaphragmatic breathing (5 min)</div>
+            <div class="ex-detail">Lying flat · Hand on belly · Slow deep breaths · Strengthens diaphragm around hernia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUNDAY -->
+    <div class="day-card date-day">
+      <div class="day-header">
+        <span class="day-name">Sunday</span>
+        <span class="day-type">Active Recovery</span>
+      </div>
+      <div class="rest-content">
+        <div class="rest-icon">🌿</div>
+        <p>Full rest or gentle movement only. This is also your date night day — enjoy it. Recovery is when your body adapts and improves.</p>
+        <div class="rest-options">
+          <span class="rest-chip">Leisure walk</span>
+          <span class="rest-chip">Gentle yoga</span>
+          <span class="rest-chip">Stretching</span>
+          <span class="rest-chip">Complete rest</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CORE SAFE VS AVOID -->
+  <div class="section-title" style="margin-top:36px;">
+    <span class="section-tag">Hernia Guide</span>
+    Core Exercises
+  </div>
+  <div class="core-safe-section">
+    <h2>Hernia-Safe Core: What To Do vs. What To Avoid</h2>
+    <div class="sub">Core strength is essential for your back and mobility goals — these are the right ways to build it with a hiatal hernia</div>
+    <div class="core-grid">
+      <div class="core-card safe-ex">
+        <strong>✅ Safe — Do These</strong>
+        <ul>
+          <li>Dead Bug</li>
+          <li>Bird Dog</li>
+          <li>Modified Side Plank (knee down)</li>
+          <li>Knee Plank (forearms)</li>
+          <li>Pelvic Tilts</li>
+          <li>Glute Bridges (bodyweight)</li>
+          <li>Diaphragmatic breathing</li>
+          <li>Standing core bracing</li>
+          <li>Wall sits (isometric)</li>
+        </ul>
+      </div>
+      <div class="core-card avoid-ex">
+        <strong>❌ Avoid — These Worsen Hernia</strong>
+        <ul>
+          <li>Crunches (any variation)</li>
+          <li>Sit-ups</li>
+          <li>Leg raises (single or double)</li>
+          <li>V-sits or boat pose</li>
+          <li>Russian twists with weight</li>
+          <li>Full floor plank (for now)</li>
+          <li>Heavy Valsalva breathing</li>
+          <li>Any exercise that makes you grunt</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIFESTYLE TIPS -->
+  <div class="lifestyle-section">
+    <h2>Daily Lifestyle Modifications for Hernia</h2>
+    <div class="lifestyle-grid">
+      <div class="lifestyle-card">
+        <strong>🛏️ Sleep Position</strong>
+        <p>Elevate the head of your bed 4–6 inches using bed risers or a wedge pillow. This is one of the most evidence-backed interventions and will reduce nighttime symptoms significantly.</p>
+      </div>
+      <div class="lifestyle-card">
+        <strong>🍽️ Meal-to-Workout Gap</strong>
+        <p>Always wait at least 2 hours after eating before any workout. A full stomach significantly increases intra-abdominal pressure during exercise.</p>
+      </div>
+      <div class="lifestyle-card">
+        <strong>👕 Loose Clothing</strong>
+        <p>Avoid tight waistbands and belts during workouts. As you lose visceral fat this will resolve naturally, but it matters now.</p>
+      </div>
+      <div class="lifestyle-card">
+        <strong>🚶 Posture After Meals</strong>
+        <p>Stay upright for at least 45 minutes after eating. A short gentle walk after dinner is ideal — it aids digestion and keeps gravity working for you.</p>
+      </div>
+      <div class="lifestyle-card">
+        <strong>💨 Breathing During Lifts</strong>
+        <p>Exhale on every exertion. If you find yourself holding your breath or bearing down hard, the weight is too heavy. Reduce it until you can breathe normally.</p>
+      </div>
+      <div class="lifestyle-card">
+        <strong>📉 The Big Picture</strong>
+        <p>Every pound of visceral fat lost directly reduces the pressure pushing your stomach through the diaphragm. Your exercise and diet plan is the best long-term hernia treatment available.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESSION -->
+  <div class="progression-section">
+    <h2>8-Week Progression Plan</h2>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-week">Weeks 1–2</div>
+        <p>Form mastery. Bodyweight or very light resistance. Focus entirely on breathing technique and neutral spine. Film yourself if possible.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 3–4</div>
+        <p>Add light resistance. Establish consistency. Note which exercises trigger any hernia symptoms and adjust accordingly.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 5–6</div>
+        <p>Progressive overload begins. Increase resistance by 5–10% every 2 weeks. Add metabolic finishers (step-touches only).</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 7–8</div>
+        <p>Reassess core work. If hernia symptoms have reduced (they should have), gradually trial longer plank holds. Increase walk duration.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Month 3+</div>
+        <p>Reassess with physician if possible. Significant visceral fat loss should allow progression to more challenging core work and heavier lower body exercises.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOP SIGNS -->
+  <div class="stop-section">
+    <h2>⛔ Stop Exercising Immediately If You Experience</h2>
+    <div class="stop-grid">
+      <div class="stop-item"><strong>Chest Pain or Pressure</strong>Can indicate reflux through hernia or cardiac issue — rest and monitor. Seek care if persistent.</div>
+      <div class="stop-item"><strong>Difficulty Swallowing</strong>If food feels stuck or swallowing becomes difficult during or after exercise, stop and seek evaluation.</div>
+      <div class="stop-item"><strong>Sharp Abdominal Pain</strong>Distinct from muscle burn — sharp or stabbing pain in the upper abdomen warrants stopping immediately.</div>
+      <div class="stop-item"><strong>Shortness of Breath</strong>Beyond normal exercise exertion — could indicate hernia pressing on diaphragm space.</div>
+      <div class="stop-item"><strong>Joint Pain (Not Soreness)</strong>Sharp or grinding pain in neck, shoulder, back, or knee. Muscle soreness is normal; joint pain is a stop signal.</div>
+      <div class="stop-item"><strong>Dizziness or Nausea</strong>Stop, sit upright, breathe slowly. Can result from exertion or reflux episode.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
