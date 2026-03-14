@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reyna — Weekly Exercise Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --rose: #9b2c5e;
+    --rose-mid: #c2507a;
+    --rose-light: #e8a0bb;
+    --rose-pale: #fce8f1;
+    --amber: #e76f51;
+    --amber-light: #f4a261;
+    --green: #2d6a4f;
+    --green-pale: #d8f3dc;
+    --slate: #374151;
+    --gray: #6b7280;
+    --red: #dc2626;
+    --red-soft: #fee2e2;
+    --yellow-soft: #fefce8;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(155,44,94,0.10);
+    --bg: #fdf4f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--slate);
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--rose) 0%, #5a1535 100%);
+    color: white;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23e8a0bb' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  header .header-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    position: relative;
+  }
+  header p {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    opacity: 0.82;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* WHY THIS IS DIFFERENT */
+  .why-card {
+    background: linear-gradient(135deg, #fff8fb 0%, white 100%);
+    border: 2px solid var(--rose-light);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .why-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .why-card p { font-size: 0.9rem; color: #555; line-height: 1.75; margin-bottom: 8px; }
+  .why-card p:last-child { margin-bottom: 0; }
+  .why-card strong { color: var(--rose); }
+
+  /* THYROID NOTICE */
+  .thyroid-card {
+    background: var(--yellow-soft);
+    border: 2px solid #fcd34d;
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .thyroid-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #92400e;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .thyroid-card ul {
+    margin: 6px 0 0 18px;
+    font-size: 0.87rem;
+    line-height: 2;
+    color: #78350f;
+  }
+
+  /* LEGEND */
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .legend-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-green { background: #22c55e; }
+  .dot-amber { background: #f59e0b; }
+  .dot-red { background: #ef4444; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--rose);
+    margin: 32px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--rose-pale);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .section-tag {
+    background: var(--rose);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* DAYS GRID */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    margin-bottom: 8px;
+  }
+
+  .day-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+  .day-card:hover { transform: translateY(-2px); }
+
+  .day-header {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-mid) 100%);
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day-header .day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+  }
+  .day-header .day-type {
+    font-size: 0.72rem;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .day-card.cardio-day .day-header {
+    background: linear-gradient(135deg, var(--green) 0%, #52b788 100%);
+  }
+  .day-card.rest-day .day-header {
+    background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+  }
+  .day-card.date-day .day-header {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+  }
+
+  .day-body { padding: 16px 18px; }
+
+  .phase-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .phase-label:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+  .ex-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.87rem;
+  }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .ex-dot.safe { background: #22c55e; }
+  .ex-dot.caution { background: #f59e0b; }
+  .ex-dot.avoid { background: #ef4444; }
+
+  .ex-name { font-weight: 600; color: var(--slate); }
+  .ex-detail { font-size: 0.78rem; color: var(--gray); margin-top: 1px; }
+  .ex-wrist {
+    font-size: 0.72rem;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 1px 7px;
+    border-radius: 6px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+  .ex-knee {
+    font-size: 0.72rem;
+    background: var(--rose-pale);
+    color: var(--rose);
+    padding: 1px 7px;
+    border-radius: 6px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+  .ex-thyroid {
+    font-size: 0.72rem;
+    background: #f0fdf4;
+    color: #15803d;
+    padding: 1px 7px;
+    border-radius: 6px;
+    margin-top: 3px;
+    display: inline-block;
+  }
+
+  .avoid-box {
+    background: var(--red-soft);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+  }
+  .avoid-box strong {
+    font-size: 0.75rem;
+    color: var(--red);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .avoid-box ul {
+    margin-left: 14px;
+    font-size: 0.8rem;
+    color: #7f1d1d;
+    line-height: 1.8;
+  }
+
+  .rest-content {
+    padding: 18px;
+    text-align: center;
+  }
+  .rest-icon { font-size: 2rem; margin-bottom: 8px; }
+  .rest-content p { font-size: 0.87rem; color: var(--gray); line-height: 1.6; }
+  .rest-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .rest-chip {
+    background: var(--rose-pale);
+    color: var(--rose);
+    font-size: 0.78rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  /* WRIST & KNEE GUIDES */
+  .joint-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .joint-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+  .joint-section .sub { font-size: 0.85rem; color: var(--gray); margin-bottom: 18px; }
+  .joint-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .joint-card {
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .joint-card.safe-ex { background: #f0fdf4; border-left: 3px solid #22c55e; }
+  .joint-card.avoid-ex { background: var(--red-soft); border-left: 3px solid #ef4444; }
+  .joint-card.wrist-ex { background: #fefce8; border-left: 3px solid #fcd34d; }
+  .joint-card strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .joint-card.safe-ex strong { color: #15803d; }
+  .joint-card.avoid-ex strong { color: var(--red); }
+  .joint-card.wrist-ex strong { color: #92400e; }
+  .joint-card ul {
+    list-style: none;
+    font-size: 0.83rem;
+    line-height: 1.9;
+    color: #374151;
+  }
+  .joint-card ul li::before { content: '• '; }
+
+  /* PROTEIN SECTION */
+  .protein-section {
+    background: linear-gradient(135deg, #fff8fb 0%, white 100%);
+    border: 2px solid var(--rose-light);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .protein-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .protein-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .protein-card {
+    background: var(--rose-pale);
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .protein-card strong { display: block; font-size: 0.83rem; color: var(--rose); margin-bottom: 4px; }
+  .protein-card p { font-size: 0.82rem; color: #5a1535; line-height: 1.5; }
+
+  /* WRIST STRETCHES */
+  .stretch-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .stretch-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  .stretch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+  }
+  .stretch-card {
+    background: #fefce8;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid #fcd34d;
+  }
+  .stretch-card strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #92400e;
+    margin-bottom: 5px;
+  }
+  .stretch-card p { font-size: 0.82rem; color: #78350f; line-height: 1.6; }
+
+  /* PROGRESSION */
+  .progression-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+  .progression-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .prog-card {
+    background: linear-gradient(135deg, var(--rose-pale) 0%, white 100%);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-top: 3px solid var(--rose-light);
+  }
+  .prog-card .prog-week {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--rose-mid);
+    margin-bottom: 6px;
+  }
+  .prog-card p { font-size: 0.83rem; color: #374151; line-height: 1.55; }
+
+  /* STOP SIGNS */
+  .stop-section {
+    background: linear-gradient(135deg, #fff1f0 0%, #fff 100%);
+    border: 2px solid #fca5a5;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+  }
+  .stop-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--red);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .stop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .stop-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.84rem;
+    border-left: 3px solid #fca5a5;
+    color: #555;
+    line-height: 1.5;
+  }
+  .stop-item strong { display: block; color: var(--red); font-size: 0.82rem; }
+
+  @media print { body { background: white; } .day-card:hover { transform: none; } }
+  @media (max-width: 600px) { .days-grid { grid-template-columns: 1fr; } header { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Wrist & Knee Safe · Thyroid Aware</div>
+  <h1>Reyna's Weekly Exercise Plan</h1>
+  <p>Resistance-First · Muscle-Building · Age 60 · Medication Reduction Focus</p>
+</header>
+
+<div class="main-wrap">
+
+  <!-- WHY THIS IS DIFFERENT -->
+  <div class="why-card">
+    <h2>Why This Program Is Different From Walking</h2>
+    <p>Your dedication to 1–2 hours of daily walking shows tremendous commitment — but walking alone at age 60 does not build the muscle mass needed to change your body composition, boost your metabolism, or support medication reduction. Cardio burns calories during the workout; <strong>muscle burns calories around the clock</strong>, including while you sleep.</p>
+    <p>This program deliberately <strong>reduces your daily cardio walking</strong> and replaces it with resistance training 3 days per week. This is not a step backward — it is the single most important change for your goals. Women at 60 lose muscle rapidly without deliberate resistance work, and thyroid conditions make this even more pronounced. The results you want require this shift.</p>
+  </div>
+
+  <!-- THYROID NOTICE -->
+  <div class="thyroid-card">
+    <h2>🦋 Thyroid Considerations</h2>
+    <ul>
+      <li>Take thyroid medication first thing in the morning, 30–60 minutes before exercise and breakfast</li>
+      <li>Fatigue on some days is normal with thyroid conditions — listen to your body and reduce intensity, not frequency</li>
+      <li>Resistance training actively supports thyroid function by improving insulin sensitivity and metabolic rate</li>
+      <li>Track energy levels weekly — improving energy is a key sign your medication and exercise are working together</li>
+      <li>If fatigue is severe and persistent after 4 weeks, discuss medication timing adjustment with your doctor</li>
+      <li>Avoid high-intensity cardio on days when fatigue is significant — a gentle walk is always the right substitute</li>
+    </ul>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend-row">
+    <div class="legend-chip"><span class="dot dot-green"></span> Safe as written</div>
+    <div class="legend-chip"><span class="dot dot-amber"></span> Use modification noted</div>
+    <div class="legend-chip"><span class="dot dot-red"></span> Avoid</div>
+    <div class="legend-chip" style="background:#fefce8; color:#92400e;">🔶 Wrist mod</div>
+    <div class="legend-chip" style="background:#fce8f1; color:#9b2c5e;">🔷 Knee mod</div>
+    <div class="legend-chip" style="background:#f0fdf4; color:#15803d;">🌿 Thyroid note</div>
+  </div>
+
+  <!-- WEEKLY SCHEDULE -->
+  <div class="section-title">
+    <span class="section-tag">Week Structure</span>
+    7-Day Program
+  </div>
+
+  <div class="days-grid">
+
+    <!-- MONDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Monday</span>
+        <span class="day-type">Upper Body Resistance</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 8 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Arm circles + shoulder rolls</div>
+            <div class="ex-detail">10 reps each direction · Standing · No weight</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wrist circles + gentle finger flexion</div>
+            <div class="ex-detail">10 reps each direction · Do this before every workout</div>
+            <span class="ex-wrist">🔶 Always warm wrists before any upper body work</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band pull-aparts</div>
+            <div class="ex-detail">15 reps · Light band · Shoulder activation</div>
+            <span class="ex-wrist">🔶 Grip band loosely — do not white-knuckle grip</span>
+          </div>
+        </div>
+
+        <div class="phase-label">Resistance Training · 20–25 min (Bands Primary)</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Chest Press (seated or standing)</div>
+            <div class="ex-detail">3 × 12–15 reps · Anchor at chest height behind you</div>
+            <span class="ex-wrist">🔶 Neutral wrist throughout — never bend wrist back under load</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Rows (seated)</div>
+            <div class="ex-detail">3 × 12–15 reps · Sit on chair, band anchored in front</div>
+            <span class="ex-wrist">🔶 Loop band around wrists if grip is painful — not just fingers</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Shoulder Press (seated)</div>
+            <div class="ex-detail">3 × 12–15 reps · Sit on chair, step on band</div>
+            <span class="ex-wrist">🔶 Neutral grip (palms facing each other) is easier on wrists than palms-forward</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Bicep Curls</div>
+            <div class="ex-detail">3 × 12–15 reps · Step on band · Slow and controlled</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Tricep Pushdowns</div>
+            <div class="ex-detail">3 × 12–15 reps · Anchor band at head height</div>
+            <span class="ex-wrist">🔶 Preferred over overhead extension — less wrist strain</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wall Push-Ups</div>
+            <div class="ex-detail">2 × 10–12 reps · Hands flat on wall at chest height</div>
+            <span class="ex-wrist">🔶 Wall only — floor push-ups put full body weight through wrists</span>
+          </div>
+        </div>
+
+        <div class="avoid-box">
+          <strong>❌ Avoid Monday</strong>
+          <ul>
+            <li>Floor push-ups (wrist load)</li>
+            <li>Dumbbell exercises where wrist must stabilize under load</li>
+            <li>Any grip that causes wrist pain — stop immediately</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUESDAY -->
+    <div class="day-card cardio-day">
+      <div class="day-header">
+        <span class="day-name">Tuesday</span>
+        <span class="day-type">Moderate Walk</span>
+      </div>
+      <div class="day-body">
+        <div class="phase-label">Cardio · 25–30 min only</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Moderate pace walk</div>
+            <div class="ex-detail">25–30 min · Comfortable conversational pace · With Greg if possible</div>
+            <span class="ex-thyroid">🌿 If fatigue is high today, 20 min is enough — do not push through thyroid fatigue</span>
+          </div>
+        </div>
+        <div class="phase-label">Important Note</div>
+        <div class="ex-row">
+          <span class="ex-dot caution"></span>
+          <div>
+            <div class="ex-name">This replaces your previous 1–2 hour walks</div>
+            <div class="ex-detail">Shorter walk is intentional — preserves energy for resistance days which matter more for your goals</div>
+          </div>
+        </div>
+        <div class="phase-label">Optional Add-On · 10 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wrist stretching routine</div>
+            <div class="ex-detail">See Wrist Stretch Guide below · Good recovery day practice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEDNESDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Wednesday</span>
+        <span class="day-type">Lower Body Resistance</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 8 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Hip circles + leg swings</div>
+            <div class="ex-detail">10 each direction · Hold wall for balance</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Heel slides (lying on back)</div>
+            <div class="ex-detail">10 reps each leg · Gentle knee warm-up</div>
+            <span class="ex-knee">🔷 Always warm knees before any lower body work</span>
+          </div>
+        </div>
+
+        <div class="phase-label">Resistance Training · 20–25 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wall Squats</div>
+            <div class="ex-detail">3 × 10–12 reps · Back against wall · Feet shoulder-width</div>
+            <span class="ex-knee">🔷 Partial range only — stop before any knee pain. Never go past 90°</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Glute Bridges</div>
+            <div class="ex-detail">3 × 12–15 reps · Lying on back · Feet flat · Bodyweight only</div>
+            <span class="ex-knee">🔷 Excellent knee-safe glute exercise — no knee stress at all</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Step-Backs (Reverse Lunges)</div>
+            <div class="ex-detail">3 × 8–10 each leg · Hold wall or chair · Step back not forward</div>
+            <span class="ex-knee">🔷 Reverse lunges are much easier on knees than forward lunges</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Calf Raises</div>
+            <div class="ex-detail">3 × 15–20 reps · Hold wall for balance · Both legs</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Clamshells with band</div>
+            <div class="ex-detail">3 × 15 each side · Light band above knees · Lying on side</div>
+            <span class="ex-knee">🔷 Strengthens hips which reduces knee stress long-term</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Side-Lying Leg Lifts</div>
+            <div class="ex-detail">2 × 12–15 each side · Bodyweight · Slow and controlled</div>
+          </div>
+        </div>
+
+        <div class="avoid-box">
+          <strong>❌ Avoid Wednesday</strong>
+          <ul>
+            <li>Deep squats past 90° (knee stress)</li>
+            <li>Forward lunges (more knee strain than reverse)</li>
+            <li>Step-ups higher than 4–6 inches until knees are stronger</li>
+            <li>Any movement that causes knee clicking with pain (clicking alone is okay)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- THURSDAY -->
+    <div class="day-card cardio-day">
+      <div class="day-header">
+        <span class="day-name">Thursday</span>
+        <span class="day-type">Moderate Walk + Stretch</span>
+      </div>
+      <div class="day-body">
+        <div class="phase-label">Cardio · 25–30 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Moderate pace walk</div>
+            <div class="ex-detail">25–30 min · Easy to moderate pace · Enjoy the scenery</div>
+            <span class="ex-thyroid">🌿 Two walks per week is the right amount — more than this works against muscle building</span>
+          </div>
+        </div>
+        <div class="phase-label">Flexibility · 15 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Full wrist stretch routine</div>
+            <div class="ex-detail">See Wrist Stretch Guide · All 5 stretches</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Knee + hip flexibility</div>
+            <div class="ex-detail">Heel slides · Quad stretch (supported) · Hip flexor stretch</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Cat-cow + child's pose</div>
+            <div class="ex-detail">10 slow cycles · 60 sec child's pose · Spinal decompression</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Friday</span>
+        <span class="day-type">Full Body Resistance</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Warm-Up · 8 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Wrist circles + arm swings + hip circles</div>
+            <div class="ex-detail">Full body prep · 10 reps each</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Full Body Circuit · 2 rounds</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Bodyweight Squats (partial range)</div>
+            <div class="ex-detail">12 reps · Arms forward · Stop before knee pain</div>
+            <span class="ex-knee">🔷 Hold chair back lightly for safety if needed</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Chest Press</div>
+            <div class="ex-detail">15 reps · Neutral wrist · Controlled tempo</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Rows (seated)</div>
+            <div class="ex-detail">12 reps · Pull elbows back · Squeeze shoulder blades</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Glute Bridges</div>
+            <div class="ex-detail">15 reps · Add light band above knees for extra challenge</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">BOSU Balance Hold (flat side up)</div>
+            <div class="ex-detail">30 sec standing · Eyes open · Balance training for fall prevention</div>
+            <span class="ex-knee">🔷 Have a wall or chair nearby for safety — do not attempt if knees are sore today</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Standing Knee Raises</div>
+            <div class="ex-detail">10 each leg · Hold wall · Core + hip flexor</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Band Pull-Aparts</div>
+            <div class="ex-detail">15 reps · Upper back + rear shoulder</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Rest Between Rounds</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">2–3 minutes seated rest</div>
+            <div class="ex-detail">Breathe normally · Sip water · Do not rush</div>
+            <span class="ex-thyroid">🌿 Adequate rest between rounds is especially important with thyroid fatigue</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SATURDAY -->
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">Saturday</span>
+        <span class="day-type">Active Recovery + Core</span>
+      </div>
+      <div class="day-body">
+
+        <div class="phase-label">Gentle Core · 15 min (Joint-Safe)</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Dead Bug</div>
+            <div class="ex-detail">3 × 8 each side · Lying on back · Slow · Breathe out on extension</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Bird Dog</div>
+            <div class="ex-detail">3 × 8 each side · On hands and knees · Hold 2 sec at top</div>
+            <span class="ex-wrist">🔶 If wrists are sore, do this on fists or forearms instead</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Modified Side Plank (on knee)</div>
+            <div class="ex-detail">2 × 20 sec each side · Bottom knee down · Forearm on floor</div>
+            <span class="ex-wrist">🔶 Forearm version only — not on hand</span>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Pelvic tilts</div>
+            <div class="ex-detail">10 reps · Lying on back · Strengthens lower core safely</div>
+          </div>
+        </div>
+
+        <div class="phase-label">Full Flexibility · 20 min</div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Complete wrist + shoulder + hip routine</div>
+            <div class="ex-detail">Saturday is the day to be thorough — flexibility work directly reduces joint pain over time</div>
+          </div>
+        </div>
+        <div class="ex-row">
+          <span class="ex-dot safe"></span>
+          <div>
+            <div class="ex-name">Gentle yoga option</div>
+            <div class="ex-detail">Abi Mills Yoga for Seniors (YouTube) · 20–30 min · Excellent for wrists + knees</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUNDAY -->
+    <div class="day-card date-day">
+      <div class="day-header">
+        <span class="day-name">Sunday</span>
+        <span class="day-type">Rest + Date Night</span>
+      </div>
+      <div class="rest-content">
+        <div class="rest-icon">🌸</div>
+        <p>Complete rest. Your body rebuilds and strengthens on rest days — this is not optional, it's part of the program. Enjoy your date night with Greg.</p>
+        <div class="rest-options">
+          <span class="rest-chip">Leisure walk</span>
+          <span class="rest-chip">Gentle stretching</span>
+          <span class="rest-chip">Yoga</span>
+          <span class="rest-chip">Complete rest</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WRIST GUIDE -->
+  <div class="section-title" style="margin-top:36px;">
+    <span class="section-tag">Wrist Guide</span>
+    Safe Exercises + Stretches
+  </div>
+
+  <div class="joint-section">
+    <h2>Wrist — What To Do vs. What To Avoid</h2>
+    <div class="sub">Resistance bands are your primary tool because they allow a neutral wrist position that dumbbells and floor exercises do not</div>
+    <div class="joint-grid">
+      <div class="joint-card safe-ex">
+        <strong>✅ Wrist-Safe Exercises</strong>
+        <ul>
+          <li>All resistance band exercises</li>
+          <li>Wall push-ups (hands flat on wall)</li>
+          <li>Bird dog on forearms (not hands)</li>
+          <li>Forearm plank (not on hands)</li>
+          <li>Any exercise where wrist stays neutral</li>
+          <li>Band exercises with loop around wrist, not grip</li>
+        </ul>
+      </div>
+      <div class="joint-card avoid-ex">
+        <strong>❌ Avoid — Wrist Stress</strong>
+        <ul>
+          <li>Floor push-ups</li>
+          <li>Downward dog (yoga)</li>
+          <li>Heavy dumbbell exercises</li>
+          <li>Plank on hands</li>
+          <li>Bird dog on hands if painful</li>
+          <li>Any grip that causes wrist pain</li>
+        </ul>
+      </div>
+      <div class="joint-card wrist-ex">
+        <strong>🔶 Wrist Warm-Up (Every Workout)</strong>
+        <ul>
+          <li>Wrist circles × 10 each direction</li>
+          <li>Gentle finger flexion and extension</li>
+          <li>Prayer stretch (palms together, lower hands)</li>
+          <li>Reverse prayer stretch (backs of hands together)</li>
+          <li>Wrist flexor stretch (arm extended, palm up, gently pull fingers back)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KNEE GUIDE -->
+  <div class="joint-section">
+    <h2>Knee — Safe Exercises + Modifications</h2>
+    <div class="sub">Strengthening the muscles around the knee (glutes, quads, hamstrings) is the best long-term treatment for knee pain</div>
+    <div class="joint-grid">
+      <div class="joint-card safe-ex">
+        <strong>✅ Knee-Safe Exercises</strong>
+        <ul>
+          <li>Glute bridges (no knee stress)</li>
+          <li>Clamshells (hip strengthening)</li>
+          <li>Side-lying leg lifts</li>
+          <li>Wall squats (partial range)</li>
+          <li>Reverse lunges (easier than forward)</li>
+          <li>Heel slides (gentle mobility)</li>
+          <li>Calf raises (hold wall)</li>
+          <li>Seated leg extensions (light band)</li>
+        </ul>
+      </div>
+      <div class="joint-card avoid-ex">
+        <strong>❌ Avoid — Knee Stress</strong>
+        <ul>
+          <li>Deep squats past 90°</li>
+          <li>Forward lunges</li>
+          <li>Step-ups higher than 4–6 inches</li>
+          <li>Running or jogging</li>
+          <li>Kneeling on hard floor without pad</li>
+          <li>Any exercise that causes knee pain during</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRIST STRETCHES -->
+  <div class="stretch-section">
+    <h2>Daily Wrist Stretch Routine (5 min)</h2>
+    <div class="stretch-grid">
+      <div class="stretch-card">
+        <strong>1. Prayer Stretch</strong>
+        <p>Press palms together in front of chest. Slowly lower hands toward waist while keeping palms together. Hold 30 sec. Stretches wrist flexors.</p>
+      </div>
+      <div class="stretch-card">
+        <strong>2. Reverse Prayer</strong>
+        <p>Press backs of hands together, fingers pointing down. Hold 20–30 sec. Stretches the opposite side of the wrist.</p>
+      </div>
+      <div class="stretch-card">
+        <strong>3. Wrist Flexor Stretch</strong>
+        <p>Extend one arm forward, palm up. Use other hand to gently pull fingers back toward you. Hold 30 sec each side.</p>
+      </div>
+      <div class="stretch-card">
+        <strong>4. Wrist Extensor Stretch</strong>
+        <p>Extend one arm forward, palm down. Use other hand to gently press fingers downward. Hold 30 sec each side.</p>
+      </div>
+      <div class="stretch-card">
+        <strong>5. Wrist Circles</strong>
+        <p>Make a loose fist. Slowly rotate wrists in full circles — 10 forward, 10 backward. Do this before AND after every workout.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROTEIN -->
+  <div class="protein-section">
+    <h2>Protein Is Non-Negotiable for Your Goals</h2>
+    <p style="font-size:0.9rem; color:#555; line-height:1.75;">Resistance training only builds muscle if there is enough protein available. At 60 with a thyroid condition, your target is <strong>90–100g of protein daily</strong>. Most women eat far less than this. Without adequate protein, resistance training produces minimal results regardless of effort.</p>
+    <div class="protein-grid">
+      <div class="protein-card">
+        <strong>🥚 Breakfast Target</strong>
+        <p>25–30g protein · 3 eggs + cottage cheese, or Greek yogurt + protein smoothie</p>
+      </div>
+      <div class="protein-card">
+        <strong>🍗 Lunch Target</strong>
+        <p>30–35g protein · Grilled chicken, salmon, or tuna · Generous portion</p>
+      </div>
+      <div class="protein-card">
+        <strong>🐟 Dinner Target</strong>
+        <p>30–35g protein · Fish or chicken primary · Eggs as backup option</p>
+      </div>
+      <div class="protein-card">
+        <strong>📊 Track for 2 Weeks</strong>
+        <p>Use a simple app like Cronometer to verify you're hitting 90–100g. Most women are surprised how far under they are.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESSION -->
+  <div class="progression-section">
+    <h2>8-Week Progression Plan</h2>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-week">Weeks 1–2</div>
+        <p>Learn the movements with light or no resistance. Focus on wrist and knee positioning. Do not push through joint pain.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 3–4</div>
+        <p>Add light band resistance. Establish 3 resistance days as a non-negotiable habit. Note energy levels daily.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 5–6</div>
+        <p>Progress to medium resistance bands. Add a third round to the Friday circuit if energy allows.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Weeks 7–8</div>
+        <p>Assess progress. Energy should be noticeably improved. Discuss medication review timing with doctor if energy and markers are improving.</p>
+      </div>
+      <div class="prog-card">
+        <div class="prog-week">Month 3+</div>
+        <p>Consider adding light dumbbells for lower body exercises where wrists are not involved. Track body composition, not just weight.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOP SIGNS -->
+  <div class="stop-section">
+    <h2>⛔ Stop Exercising Immediately If You Experience</h2>
+    <div class="stop-grid">
+      <div class="stop-item"><strong>Sharp Wrist Pain</strong>Dull aching after exercise is normal initially. Sharp pain during a movement means stop that exercise immediately and rest the wrist.</div>
+      <div class="stop-item"><strong>Knee Pain During Movement</strong>Discomfort is okay; pain is a stop signal. Reduce range of motion first, then weight, then stop the exercise if pain continues.</div>
+      <div class="stop-item"><strong>Extreme Fatigue</strong>Different from normal workout tiredness. If you feel unwell, dizzy, or unusually exhausted, stop and rest. May indicate thyroid-related fatigue.</div>
+      <div class="stop-item"><strong>Heart Pounding or Palpitations</strong>Stop immediately, sit down, breathe slowly. With thyroid conditions, palpitations warrant medical attention if they occur during exercise.</div>
+      <div class="stop-item"><strong>Numbness or Tingling in Hands</strong>Stop any exercise where this occurs. Can indicate nerve compression at the wrist that needs rest and possibly evaluation.</div>
+      <div class="stop-item"><strong>Knee Swelling After Exercise</strong>Some soreness next day is normal. Visible swelling or warmth in the knee after exercise means rest that day and ice if needed.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
